@@ -1,6 +1,6 @@
 # RAAMSES — Remote AI Agent Monitoring & System Event Supervisor
 
-<img src="assets/file_00000000af8871fb8e9b328fceb2f571.png" alt="RAAMSES Logo" width="400">
+<img src="assets/raamses-logo-highdpi.png" alt="RAAMSES Logo" width="400">
 
 **Mission Control for AI Agents**
 
