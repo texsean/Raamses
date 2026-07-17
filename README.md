@@ -4,11 +4,18 @@ RAAMSES — Mission Control for AI Agents
 
 imagine a device sitting on your desk, or a epaper pager vibrating on your wrist or in pocket..
 
+example status bar color codes 
+
 🟢 All Agents Operational
+
 🟡 Claude waiting for approval
+
 🟠 Token usage abnormal
+
 🔴 Loop detected
+
 🔴 Disk space critical
+
 
 ecosystem:
 
