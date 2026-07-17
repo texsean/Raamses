@@ -1,5 +1,7 @@
 # RAAMSES — Remote AI Agent Monitoring & System Event Supervisor
 
+<img src="assets/file_00000000af8871fb8e9b328fceb2f571.png" alt="RAAMSES Logo" width="400">
+
 **Mission Control for AI Agents**
 
 "Friday, 6:12 PM. Your agent needs one decision. Without RAAMSES, it waits until Monday. With RAAMSES, your AI Operations Console vibrates, you tap Option B, and the work keeps going."
@@ -95,8 +97,6 @@ See [LICENSE](LICENSE) — All Rights Reserved. Commercial use requires explicit
 **Built with ❤️ by Sean Rohde and the RAAMSES team.**
 
 This project is actively developed. Feedback and non-commercial contributions are welcome.
-
-![RAAMSES Logo](assets/raamses-logo-highdpi.png)
 
 ---
 *Last updated: June 2026*
