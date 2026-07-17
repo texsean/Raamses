@@ -67,8 +67,10 @@ Contact **support@raamses.io** for:
 **Free**  
 One RAAMSES server and 2 consoles (1 hardware display + 1 software display). Perfect for individual developers.
 
-**Pro** ($49.99 one-time or $14.99/month)  
-Up to 2 server instances with 10 consoles each. Pre-loaded consoles at 15% discount.
+**Pro** ($149.99 Year or $14.99/month)  
+Up to 2 server instances with 10 consoles each.
+
+Pre-loaded cconsoles when available 44t 15% discount.
 
 **Professional** ($499.89/year or $55/month)  
 Up to 10 agent instances and 10 devices for corporations.
