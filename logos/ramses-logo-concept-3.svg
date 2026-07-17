@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#05080f"/>
+  <!-- Pharaoh headdress with circuit lines -->
+  <path d="M110 90 Q200 30 290 90 L300 180 Q200 220 100 180 Z" fill="#1c2a4a" stroke="#d4af37" stroke-width="25"/>
+  <!-- Eyes -->
+  <ellipse cx="150" cy="125" rx="22" ry="35" fill="#112233" stroke="#ffdd88" stroke-width="8"/>
+  <ellipse cx="250" cy="125" rx="22" ry="35" fill="#112233" stroke="#ffdd88" stroke-width="8"/>
+  <!-- Stylized R in center -->
+  <text x="200" y="195" font-family="serif" font-size="135" fill="#e8c670" text-anchor="middle" font-weight="bold" opacity="0.95">R</text>
+  <text x="200" y="275" font-family="serif" font-size="38" fill="#b8a060" text-anchor="middle" letter-spacing="8">RAMSES</text>
+  <text x="200" y="310" font-family="monospace" font-size="13" fill="#667799" text-anchor="middle">AGENT MONITORING SYSTEM v1</text>
+</svg>

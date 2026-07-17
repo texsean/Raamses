@@ -1,0 +1,15 @@
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\obj\Debug\net8.0\Ramses.Server.Application.csproj.AssemblyReference.cache
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\obj\Debug\net8.0\Ramses.Server.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\obj\Debug\net8.0\Ramses.Server.Application.AssemblyInfoInputs.cache
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\obj\Debug\net8.0\Ramses.Server.Application.AssemblyInfo.cs
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\obj\Debug\net8.0\Ramses.Server.Application.csproj.CoreCompileInputs.cache
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\bin\Debug\net8.0\Ramses.Server.Application.deps.json
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\bin\Debug\net8.0\Ramses.Server.Application.dll
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\bin\Debug\net8.0\Ramses.Server.Application.pdb
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\bin\Debug\net8.0\Ramses.Server.Domain.dll
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\bin\Debug\net8.0\Ramses.Server.Domain.pdb
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\obj\Debug\net8.0\Ramses.S.FB85A560.Up2Date
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\obj\Debug\net8.0\Ramses.Server.Application.dll
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\obj\Debug\net8.0\refint\Ramses.Server.Application.dll
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\obj\Debug\net8.0\Ramses.Server.Application.pdb
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Application\obj\Debug\net8.0\ref\Ramses.Server.Application.dll

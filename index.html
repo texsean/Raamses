@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAAMSES — Remote AI Agent Monitoring & System Event Supervisor</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --deepblue: #0a1428;
+            --pharaoh: #1a2538;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--deepblue);
+            color: #ddd;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(180deg, #1a2538, #0a1428);
+            padding: 2rem 5%;
+            text-align: center;
+            border-bottom: 4px solid var(--gold);
+        }
+        .logo {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            letter-spacing: -4px;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+            margin-bottom: 0.5rem;
+        }
+        .tagline {
+            font-size: 1.4rem;
+            color: #aaa;
+            font-weight: 300;
+        }
+        .hero {
+            padding: 6rem 5% 4rem;
+            text-align: center;
+            background: url('https://picsum.photos/id/1015/2000/1200') center/cover no-repeat;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent, var(--deepblue) 85%);
+        }
+        .hero-content {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-size: 3.8rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.35rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #ccc;
+        }
+        .cta {
+            background: var(--gold);
+            color: #111;
+            padding: 1rem 3rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+        }
+        .features {
+            padding: 5rem 5%;
+            background: #0f1a2e;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+        }
+        .feature {
+            background: #1a2538;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+        .feature h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        .pricing {
+            padding: 5rem 5%;
+            background: var(--deepblue);
+            text-align: center;
+        }
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        .tier {
+            background: #1a2538;
+            border: 2px solid #334155;
+            border-radius: 16px;
+            padding: 2.5rem;
+            width: 320px;
+        }
+        .tier.popular {
+            border-color: var(--gold);
+            transform: scale(1.08);
+        }
+        footer {
+            background: #0a1428;
+            padding: 3rem 5%;
+            text-align: center;
+            color: #777;
+            font-size: 0.95rem;
+        }
+        .pharaoh {
+            font-size: 6rem;
+            filter: drop-shadow(0 0 30px gold);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">RAAMSES</div>
+        <div class="tagline">Remote AI Agent Monitoring & System Event Supervisor</div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="pharaoh">𓂀</span>
+            <h1>Know what your agents are doing.<br>Before they need permission.</h1>
+            <p>Real-time dashboard for Hermes, Claude Code, and other agentic systems. One free display. Unlimited with a license key.</p>
+            <button class="cta" onclick="window.location.href='#pricing'">Get Started Free</button>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <h3>Live Agent View</h3>
+            <p>Token usage, subagent count, sprint progress, and server health on a beautiful e-ink or LCD display. No more checking Telegram every 5 minutes.</p>
+        </div>
+        <div class="feature">
+            <h3>Smart Alerts</h3>
+            <p>Color-coded status bar. Red flash + vibration on your watch or pocket device when an agent is stuck or needs permission.</p>
+        </div>
+        <div class="feature">
+            <h3>Multi-Device</h3>
+            <p>CYD, ESP32 e-Paper, CardPuter, custom watches, and more. One server controls them all.</p>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <h2>Pricing</h2>
+        <div class="pricing-grid">
+            <div class="tier">
+                <h3>Free</h3>
+                <p style="font-size:2.5rem; color:var(--gold); margin:1rem 0;">$0</p>
+                <ul style="text-align:left; margin:1.5rem 0;">
+                    <li>1 display device</li>
+                    <li>Basic agent monitoring</li>
+                    <li>Token usage tracking</li>
+                </ul>
+                <button class="cta" style="background:#334155; color:white;">Get Free Version</button>
+            </div>
+            <div class="tier popular">
+                <h3>Pro</h3>
+                <p style="font-size:2.5rem; color:var(--gold); margin:1rem 0;">$49.99</p>
+                <p style="color:#aaa; margin-bottom:1.5rem;">one-time</p>
+                <ul style="text-align:left; margin:1.5rem 0;">
+                    <li>Unlimited displays</li>
+                    <li>Advanced alerts & vibration</li>
+                    <li>Full C# desktop controller</li>
+                    <li>Priority support</li>
+                </ul>
+                <button class="cta">Buy License Key</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>RAAMSES — Remote AI Agent Monitoring & System Event Supervisor</p>
+        <p>© 2026 Sean Rohde • <a href="https://github.com/texsean/Raamses" style="color:var(--gold);">GitHub</a> • Open Source Core • Commercial License Available</p>
+    </footer>
+</body>
+</html>

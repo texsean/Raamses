@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <!-- Base enclosure -->
+  <rect x="50" y="50" width="300" height="200" rx="15" ry="15" fill="#2a2a2a" stroke="#1a1a1a" stroke-width="12"/>
+  
+  <!-- Screen cutout for CYD (3.5 inch approx) -->
+  <rect x="80" y="80" width="240" height="135" rx="5" ry="5" fill="#111111" stroke="#00ffaa" stroke-width="8"/>
+  
+  <!-- CYD display area simulation -->
+  <rect x="90" y="90" width="220" height="115" fill="#0a0a0a"/>
+  <text x="140" y="130" fill="#00ffaa" font-family="monospace" font-size="18">HERMES</text>
+  <text x="125" y="155" fill="#00cc88" font-family="monospace" font-size="12">AGENTS: 3 | SUB: 2</text>
+  <text x="130" y="175" fill="#00cc88" font-family="monospace" font-size="11">SPRINT 4 • 87% COMPLETE</text>
+  
+  <!-- Status LED -->
+  <circle cx="320" cy="95" r="8" fill="#00ff00"/>
+  <text x="335" y="100" fill="#aaaaaa" font-size="10">STATUS</text>
+  
+  <!-- Speaker grill -->
+  <rect x="75" y="225" width="50" height="8" fill="#1a1a1a"/>
+  <rect x="75" y="237" width="50" height="8" fill="#1a1a1a"/>
+  
+  <!-- Buttons -->
+  <rect x="280" y="225" width="25" height="25" rx="4" fill="#333333" stroke="#555555" stroke-width="4"/>
+  <text x="287" y="242" fill="#00ffaa" font-size="11">OK</text>
+  
+  <rect x="315" y="225" width="25" height="25" rx="4" fill="#333333" stroke="#555555" stroke-width="4"/>
+  <text x="320" y="242" fill="#ff8800" font-size="11">MENU</text>
+  
+  <!-- Label -->
+  <text x="110" y="275" fill="#666666" font-family="sans-serif" font-size="14">RAMSES • CYD MONITOR v0.1</text>
+  
+  <!-- James Bond style subtle logo -->
+  <text x="340" y="275" fill="#aa0000" font-family="serif" font-size="18" font-style="italic">007</text>
+</svg>

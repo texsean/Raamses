@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Ramses.Server.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\Ramses.Server.Infrastructure.csproj" />
+    <ProjectReference Include="..\Domain\Ramses.Server.Domain.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>

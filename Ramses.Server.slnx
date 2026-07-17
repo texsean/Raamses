@@ -1,0 +1,36 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Ramses.Server/" />
+  <Folder Name="/src/Ramses.Server/Api/">
+    <Project Path="src/Ramses.Server/Api/Ramses.Server.Api.csproj" />
+  </Folder>
+  <Folder Name="/src/Ramses.Server/Application/">
+    <Project Path="src/Ramses.Server/Application/Ramses.Server.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/Ramses.Server/ClientEmulator/">
+    <Project Path="src/Ramses.Server/ClientEmulator/Ramses.Server.ClientEmulator.csproj" />
+  </Folder>
+  <Folder Name="/src/Ramses.Server/Domain/">
+    <Project Path="src/Ramses.Server/Domain/Ramses.Server.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Ramses.Server/Infrastructure/">
+    <Project Path="src/Ramses.Server/Infrastructure/Ramses.Server.Infrastructure.csproj" />
+  </Folder>
+  <Project Path="CYD-Ramses/CYD-Ramses.vcxproj" Id="b109f82c-5549-4c5e-b58d-725a9f21fd2e">
+    <Platform Solution="*|Any CPU" Project="ARM" />
+    <Platform Solution="*|x64" Project="ARM" />
+    <Platform Solution="*|x86" Project="ARM" />
+    <Deploy />
+  </Project>
+  <Project Path="RamsesCYD/RamsesCYD.vcxproj" Id="d6f08021-dbf2-4682-9f35-86bf75686a48">
+    <Platform Solution="*|x86" Project="x86" />
+    <Deploy />
+  </Project>
+</Solution>
