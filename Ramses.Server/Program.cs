@@ -102,6 +102,10 @@ namespace Ramses.Server
         {
             lock (lockObj)
             {
+                // Pull some real system stats where possible
+                var cpu = (int)(new PerformanceCounter("Processor", "% Processor Time", "_Total").NextValue());
+                var mem = (int)((1 - (double)GC.GetGCMemoryInfo().AvailableMemory / Environment.WorkingSet) * 100);
+
                 return new
                 {
                     agents = 4,
@@ -113,9 +117,22 @@ namespace Ramses.Server
                     sprint_status = "Sprint 4 of 7 - Final Review",
                     last_alert = "Server 2 requesting permission (2 min ago)",
                     overall_status = "green",
-                    cpu_usage = "23%",
-                    memory_usage = "41%",
-                    timestamp = DateTime.UtcNow.ToString("o")
+                    cpu_usage = cpu + "%",
+                    memory_usage = mem + "%",
+                    timestamp = DateTime.UtcNow.ToString("o"),
+                    // Summary vs Full Data for different device sizes
+                    summary = new { agents = 4, tokens = "18.4k/25k", status = "green" },
+                    fulldata = new { 
+                        agents = 4, 
+                        subagents = 9, 
+                        tokens_used = 18420, 
+                        tokens_today = 8740, 
+                        tokens_last_hour = 3240,
+                        sprint = "Sprint 4 of 7",
+                        last_alert = "Server 2 requesting permission (2 min ago)",
+                        cpu = cpu + "%",
+                        memory = mem + "%"
+                    }
                 };
             }
         }
