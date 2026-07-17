@@ -1,4 +1,27 @@
 # RAAMSES — Remote AI Agent Monitoring & System Event Supervisor
+RAAMSES — Mission Control for AI Agents
+"Friday, 6:12 PM. Your agent needs one decision. Without RAAMSES, it waits until Monday. With RAAMSES, your AI Operations Console vibrates, you tap Option B, and the work keeps going."
+
+imagine a device sitting on your desk, or a epaper pager vibrating on your wrist or in pocket..
+
+🟢 All Agents Operational
+🟡 Claude waiting for approval
+🟠 Token usage abnormal
+🔴 Loop detected
+🔴 Disk space critical
+
+ecosystem:
+
+RAAMSES Server
+        │
+        ├── Desktop AI Operations Console
+        ├── CYD AI Operations Console
+        ├── E-Paper AI Operations Console
+        ├── Mobile AI Operations Console
+        └── Wearable AI Operations Console
+        
+
+Then pressing a button immediately opens the details or approval screen. That's instantly understandable.
 
 **Real-time visibility into your agentic systems.**
 
@@ -7,6 +30,15 @@ RAAMSES gives developers and DevOps engineers a beautiful, always-on dashboard f
 One free display device. Unlimited with a paid license key.
 
 ## Features
+
+Raamses :
+
+Mission Control for AI Agents
+
+Know what your AI is doing.
+Never let an AI agent wait all weekend.
+Stay connected to your AI workforce.
+AI Operations. Anywhere.
 
 - Live agent/subagent count and status
 - Token usage tracking (total, today, last hour)
