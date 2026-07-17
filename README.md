@@ -6,7 +6,7 @@
 
 Imagine a device sitting on your desk, or an e-paper pager vibrating on your wrist or in your pocket.
 
-https://raw.githubusercontent.com/texsean/Raamses/refs/heads/master/docs/file_00000000d398722fb6bdc4f2290a2e24.png
+<img src="assetts/file_00000000af8871fb8e9b328fceb2f571.png" alt="Alt text" width="400">
 
 **Status Indicators**
 - 🟢 All Agents Operational
