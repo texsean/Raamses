@@ -14,14 +14,12 @@ Imagine a device sitting on your desk, or an e-paper pager vibrating on your wri
 - 🔴 Disk space critical
 
 **Ecosystem**
-```
-RAAMSES Server
-├── Desktop AI Operations Console
-├── CYD AI Operations Console
-├── E-Paper AI Operations Console
-├── Mobile AI Operations Console
-└── Wearable AI Operations Console
-```
+- RAAMSES Server
+  - Desktop AI Operations Console
+  - CYD AI Operations Console
+  - E-Paper AI Operations Console
+  - Mobile AI Operations Console
+  - Wearable AI Operations Console
 
 Pressing a button immediately opens the details or approval screen. That's instantly understandable.
 
@@ -32,7 +30,6 @@ RAAMSES gives developers and DevOps engineers a beautiful, always-on dashboard f
 **One free display device. Unlimited with a paid license key.**
 
 ## Features
-
 - Live agent/subagent count and status
 - Token usage tracking (total, today, last hour)
 - Project progress and sprint status
@@ -43,7 +40,6 @@ RAAMSES gives developers and DevOps engineers a beautiful, always-on dashboard f
 - Event-driven architecture
 
 ## Quick Start
-
 1. Download the latest firmware for your device from the Releases page
 2. Flash your CYD, ESP32, or other supported hardware
 3. Run the RAAMSES server on your Windows or Linux machine
@@ -52,33 +48,28 @@ RAAMSES gives developers and DevOps engineers a beautiful, always-on dashboard f
 See the Wiki for detailed installation instructions.
 
 ## Commercial Licensing
-
 This project is proprietary. Commercial use, redistribution, or derivative works for paid services require explicit permission.
 
 Contact support@raamses.io for:
-
 - Unlimited device licenses
 - Pre-flashed hardware
 - Enterprise support contracts
 - Custom development
 
 ## Repository Structure
-
 - `/firmware` — Device firmware (CYD, ESP32 e-Paper, etc.)
 - `/server` — C# RAAMSES.Server desktop application
 - `/docs` — Full documentation and wiki source
 - `/enclosures` — 3D printable designs
 
 ## License
-
 See LICENSE — All Rights Reserved. Commercial use requires permission.
 
 ## Contact
-
 - Support: support@raamses.io
 - GitHub: https://github.com/texsean/Raamses
 - Domain: https://raamses.io
 
-**Built with ❤️ by Sean Rohde and the RAAMSES team.**
+Built with ❤️ by Sean Rohde and the RAAMSES team.
 
 This project is actively developed. Feedback and contributions (non-commercial) are welcome.
