@@ -1,13 +1,15 @@
 # RAAMSES — Remote AI Agent Monitoring & System Event Supervisor
 
-<img src="assets/raamses-logo-highdpi.png" alt="RAAMSES Logo" width="400">
+
+<img src="assets/raamses-softwareconsole.png" alt="RAAMSES Logo" width="800">
+
 
 **Mission Control for AI Agents**
 
 "Friday, 6:12 PM. Your agent needs one decision. Without RAAMSES, it waits until Monday. With RAAMSES, your AI Operations Console vibrates, you tap Option B, and the work keeps going."
 
 Imagine a device sitting on your desk, or an e-paper pager vibrating on your wrist or in your pocket.
-
+<img src="assets/raamses-logo-highdpi.png" alt="RAAMSES Logo" width="400">
 🟢 All Agents Operational  
 🟡 Claude waiting for approval  
 🟠 Token usage abnormal  
