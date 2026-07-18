@@ -1,5 +1,17 @@
 # RAAMSES — Remote AI Agent Monitoring & System Event Supervisor
 
+NOTE
+we are almost live!
+today's date is...
+7/18/2026
+
+were planning on goingblive 9-01-2026
+
+were accepting beta test applications! 
+email support@raamses.io 
+
+sean
+
 
 <img src="assets/raamses-softwareconsole.png" alt="RAAMSES Logo" width="800">
 
@@ -72,7 +84,7 @@ One RAAMSES server and 2 consoles (1 hardware display + 1 software display). Per
 **Pro** ($149.99 Year or $14.99/month)  
 Up to 2 server instances with 10 consoles each.
 
-Pre-loaded cconsoles when available 44t 15% discount.
+Pre-loaded cconsoles when available at 15% discount.
 
 **Professional** ($499.89/year or $55/month)  
 Up to 10 agent instances and 10 devices for corporations.
