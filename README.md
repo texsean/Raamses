@@ -18,8 +18,14 @@ I'll have a python server emulator soon.
 
 Sean 
 
-
+Desktop Ai Agent Console (With Gateway)
 <img src="assets/raamses-softwareconsole.png" alt="RAAMSES Logo" width="800">
+
+<br>
+Agent Console full 3x5" OLED display example:
+
+<img src="assets/file_00000000b34481f8955c178988114fe4.png" alt="RAAMSES Logo" width="400">
+
 
 
 **Mission Control for AI Agents**
@@ -27,7 +33,12 @@ Sean
 "Friday, 6:12 PM. Your agent needs one decision. Without RAAMSES, it waits until Monday. With RAAMSES, your AI Operations Console vibrates, you tap Option B, and the work keeps going."
 
 Imagine a device sitting on your desk, or an e-paper pager vibrating on your wrist or in your pocket.
+
+Watchy custom firmware Agemt Console  example:
+
 <img src="assets/raamses-logo-highdpi.png" alt="RAAMSES Logo" width="400">
+
+
 🟢 All Agents Operational  
 🟡 Claude waiting for approval  
 🟠 Token usage abnormal  
@@ -82,7 +93,7 @@ Contact **support@raamses.io** for:
 - Enterprise support contracts
 - Custom development
 
-## Pricing Tiers
+## Pricing Tiers (Suggested TBD)
 
 **Free**  
 One RAAMSES server and 2 consoles (1 hardware display + 1 software display). Perfect for individual developers.
