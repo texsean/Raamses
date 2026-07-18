@@ -12,21 +12,18 @@ We're accepting beta tester applications!
 email support@raamses.io . we need testers with hardware already to be flashed.
 
 Note: if you download any firmware prior to launch, do so at your own risk.
-
-I'll have a python server emulator soon.
+We will publish API and have a python server emulator soon.
 
 
 Sean 
 
 Desktop Ai Agent Console (With Gateway)
-<img src="assets/raamses-softwareconsole.png" alt="RAAMSES Logo" width="800">
+<img src="assets/raamses-softwareconsole.png" alt="RAAMSES- Desktop Agent Monitoring Console" width="800">
 
 <br>
 Agent Console full 3x5" OLED display example:
-<img src="assetts/file_00000000b34481f8955c178988114fe4.png" alt="RAAMSES Logo" width="400">
 
-
-<img src="assets/file_00000000b34481f8955c178988114fe4.png" alt="RAAMSES Logo" width="400">
+<img src="assets/file_00000000b34481f8955c178988114fe4.png" alt="RAAMSES OLED Agent Monitor With 3D printable enclosure" width="400">
 
 
 
@@ -36,7 +33,10 @@ Agent Console full 3x5" OLED display example:
 
 Imagine a device sitting on your desk, or an e-paper pager vibrating on your wrist or in your pocket.
 
-Watchy custom firmware Agemt Console  example:
+Watchy custom firmware, Agent Console  example:
+
+<img src="assetts/file_00000000af8871fb8e9b328fceb2f571.png" alt="RAAMSES Logo" width="400">
+
 
 <img src="assets/raamses-logo-highdpi.png" alt="RAAMSES Logo" width="400">
 
