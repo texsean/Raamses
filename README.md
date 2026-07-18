@@ -1,5 +1,9 @@
 # RAAMSES — Remote AI Agent Monitoring & System Event Supervisor
 
+Raamses custom Agent Console epaper pager:
+
+<img src="assetts/file_00000000fd9081f5a079e45037d43f3d.png" alt="RAAMSES Pager" width="400">
+
 NOTE
 we are almost live!
 today's date is...
@@ -29,13 +33,13 @@ Agent Console full 3x5" OLED display example:
 
 **Mission Control for AI Agents**
 
-"Friday, 6:12 PM. Your agent needs one decision. Without RAAMSES, it waits until Monday. With RAAMSES, your AI Operations Console vibrates, you tap Option B, and the work keeps going."
+"Friday, 6:12 PM. Your agent needs one decision. Without RAAMSES, it waits until Monday. With RAAMSES, your AI Operations Console vibrates, you select option a, and the work keeps going."
 
-Imagine a device sitting on your desk, or an e-paper pager vibrating on your wrist or in your pocket.
+Imagine a device sitting on your desk, or an e-paper pager vibrating on your wrist or in your pocket.l!
 
 Watchy custom firmware, Agent Console  example:
 
-<img src="assetts/file_00000000af8871fb8e9b328fceb2f571.png" alt="RAAMSES Logo" width="400">
+<img src="assetts/file_00000000af8871fb8e9b328fceb2f571.png" alt="RAAMSES Logo watchy" width="400">
 
 
 <img src="assets/raamses-logo-highdpi.png" alt="RAAMSES Logo" width="400">
