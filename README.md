@@ -5,12 +5,19 @@ we are almost live!
 today's date is...
 7/18/2026
 
-were planning on goingblive 9-01-2026
+Welfome to raamses.io 
 
-were accepting beta test applications! 
-email support@raamses.io 
+we're planning on going
+live 9-01-2026
+we're accepting beta tester applications! 
+email support@raamses.io . we need testers with hardware already to be flashed.
 
-sean
+if you download any firmware prior to launch do so at your own risk.
+
+I'll have a python server emulator soon.
+
+
+Sean 
 
 
 <img src="assets/raamses-softwareconsole.png" alt="RAAMSES Logo" width="800">
