@@ -23,6 +23,8 @@ Desktop Ai Agent Console (With Gateway)
 
 <br>
 Agent Console full 3x5" OLED display example:
+<img src="assetts/file_00000000b34481f8955c178988114fe4.png" alt="RAAMSES Logo" width="400">
+
 
 <img src="assets/file_00000000b34481f8955c178988114fe4.png" alt="RAAMSES Logo" width="400">
 
