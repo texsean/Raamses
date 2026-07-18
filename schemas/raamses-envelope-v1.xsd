@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://raamses.io/schema/v1"
+           xmlns="https://raamses.io/schema/v1"
+           elementFormDefault="qualified">
+
+  <xs:include schemaLocation="raamses-common-v1.xsd"/>
+  <xs:include schemaLocation="raamses-capabilities-v1.xsd"/>
+  <xs:include schemaLocation="raamses-agent-v1.xsd"/>
+
+  <xs:element name="RaamsesMessage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="HeaderType"/>
+        <xs:element name="Payload">
+          <xs:complexType>
+            <xs:choice>
+              <xs:element name="Register" type="RegisterType"/>
+              <xs:element name="RegisterAck" type="RegisterAckType"/>
+              <xs:element name="Heartbeat" type="HeartbeatType"/>
+              <xs:element name="AgentUpdate" type="AgentUpdateType"/>
+              <xs:element name="Alert" type="AlertType"/>
+              <xs:element name="Command" type="CommandType"/>
+              <xs:element name="CommandResult" type="CommandResultType"/>
+              <xs:element name="Error" type="ErrorType"/>
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="protocolVersion" type="xs:string" fixed="1.0" use="required"/>
+      <xs:attribute name="messageType" type="MessageTypeEnum" use="required"/>
+      <xs:attribute name="messageId" type="xs:string" use="required"/>
+      <xs:attribute name="timestampUtc" type="xs:dateTime" use="required"/>
+      <xs:attribute name="sourceId" type="xs:string" use="required"/>
+      <xs:attribute name="destinationId" type="xs:string" use="required"/>
+      <xs:attribute name="sequence" type="xs:positiveInteger" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

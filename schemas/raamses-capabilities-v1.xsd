@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://raamses.io/schema/v1"
+           xmlns="https://raamses.io/schema/v1"
+           elementFormDefault="qualified">
+
+  <xs:complexType name="RegisterType">
+    <xs:sequence>
+      <xs:element name="Device" type="DeviceType"/>
+      <xs:element name="DisplayCapabilities" type="DisplayCapabilitiesType"/>
+      <xs:element name="InputCapabilities" type="InputCapabilitiesType" minOccurs="0"/>
+      <xs:element name="NotificationCapabilities" type="NotificationCapabilitiesType" minOccurs="0"/>
+      <xs:element name="PowerCapabilities" type="PowerCapabilitiesType" minOccurs="0"/>
+      <xs:element name="NetworkCapabilities" type="NetworkCapabilitiesType" minOccurs="0"/>
+      <xs:element name="SupportedCommands" type="SupportedCommandsType" minOccurs="0"/>
+      <xs:element name="SupportedPayloads" type="SupportedPayloadsType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DeviceType">
+    <xs:sequence>
+      <xs:element name="DeviceId" type="xs:string"/>
+      <xs:element name="DeviceName" type="xs:string"/>
+      <xs:element name="DeviceClass" type="DeviceClassEnum"/>
+      <xs:element name="Manufacturer" type="xs:string"/>
+      <xs:element name="Model" type="xs:string"/>
+      <xs:element name="HardwareVersion" type="xs:string"/>
+      <xs:element name="FirmwareVersion" type="xs:string"/>
+      <xs:element name="OperatingSystem" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Add other capability types, DeviceClassEnum, etc. following your spec -->
+  <xs:simpleType name="DeviceClassEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DesktopConsole"/>
+      <xs:enumeration value="DeskConsole"/>
+      <xs:enumeration value="WearableConsole"/>
+      <xs:enumeration value="PocketConsole"/>
+      <xs:enumeration value="WallConsole"/>
+      <xs:enumeration value="MobileConsole"/>
+      <xs:enumeration value="WebConsole"/>
+      <xs:enumeration value="DevelopmentConsole"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- DisplayCapabilitiesType, etc. would go here - abbreviated for first version -->
+  <xs:complexType name="DisplayCapabilitiesType">
+    <xs:sequence>
+      <xs:element name="WidthPixels" type="xs:positiveInteger"/>
+      <xs:element name="HeightPixels" type="xs:positiveInteger"/>
+      <xs:element name="DisplayType" type="DisplayTypeEnum"/>
+      <!-- ... all other fields from your example ... -->
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://raamses.io/schema/v1"
+           xmlns="https://raamses.io/schema/v1"
+           elementFormDefault="qualified">
+
+  <xs:simpleType name="MessageTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Register"/>
+      <xs:enumeration value="RegisterAck"/>
+      <xs:enumeration value="Heartbeat"/>
+      <xs:enumeration value="AgentUpdate"/>
+      <xs:enumeration value="Alert"/>
+      <xs:enumeration value="Command"/>
+      <xs:enumeration value="CommandResult"/>
+      <xs:enumeration value="Error"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="HeaderType">
+    <xs:sequence>
+      <xs:element name="SessionId" type="xs:string" minOccurs="0"/>
+      <xs:element name="CorrelationId" type="xs:string" minOccurs="0"/>
+      <xs:element name="Priority" type="PriorityEnum" default="Normal"/>
+      <xs:element name="TimeToLiveSeconds" type="xs:positiveInteger" default="30" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="PriorityEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Low"/>
+      <xs:enumeration value="Normal"/>
+      <xs:enumeration value="High"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
