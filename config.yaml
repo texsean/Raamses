@@ -1,0 +1,33 @@
+# RAAMSES Server Configuration
+# Small enough to distribute. Optional LLM for advanced verification.
+
+server:
+  name: "RAAMSES-Gateway-01"
+  port: 8080
+  protocol: "both"          # xml, json, or both
+  tls_enabled: false
+
+verification:
+  enabled: true
+  inactivity_methodology: "LocalLLM"    # FILEbased or LocalLLM
+  local_model: "llama3.2:3b"
+  poll_interval_seconds: 30
+  confidence_threshold: 65
+
+  # FILEbased settings (used when inactivity_methodology = FILEbased)
+  file_monitor:
+    - "C:/Agents/status/agent1.md"
+    - "C:/Agents/logs/claude.log"
+    - "/home/pi/agent_output.txt"
+
+  # LLM prompt tuning
+  llm:
+    temperature: 0.3
+    max_tokens: 512
+    system_prompt: "You are an independent RAAMSES Verification Agent. Be strict but fair."
+
+logging:
+  level: "INFO"
+  file: "raamses.log"
+
+# Future: plugin architecture, agent registry, etc.

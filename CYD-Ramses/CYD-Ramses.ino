@@ -6,149 +6,213 @@
 
 TFT_eSPI tft = TFT_eSPI();
 
-const char* SERVER_IP = "192.168.7.XXX";   // ← CHANGE TO YOUR LAPTOP IP
+String serverIP = "192.168.7.251";   // Default - will be configurable
+const int SERVER_PORT = 8080;
 
-int currentPage = 0;  // 0 = Main, 1 = About, 2 = Detail, 3 = Full Response
+int rotation = 1;
+String title = "AGENT MONITOR";
 
-String deviceName = "RAAMSES";
-String agentStatus = "Agents: 4 | Sub: 9";
-String projectStatus = "PCI-SSS-2.0 (67%)";
-String tokenStatus = "Tokens: 18.4k / 25k (74%)";
-String lastAlert = "Server 2 requesting permission";
+String overallStatus = "green";
+String statusText = "All systems nominal";
+int agents = 1;
+int subagents = 0;
+int tokensToday = 0;
+String sprintStatus = "";
 
-String fullResponseText = "Full agent response would appear here with reply option.";
+void colorTest() {
+  Serial.println("=== COLOR TEST START ===");
+  tft.fillScreen(TFT_RED);
+  tft.setTextColor(TFT_WHITE, TFT_RED);
+  tft.setTextSize(2);
+  tft.setCursor(40, 100);
+  tft.println("RED");
+  delay(800);
+  
+  tft.fillScreen(TFT_GREEN);
+  tft.setTextColor(TFT_BLACK, TFT_GREEN);
+  tft.setCursor(40, 100);
+  tft.println("GREEN");
+  delay(800);
+  
+  tft.fillScreen(TFT_BLUE);
+  tft.setTextColor(TFT_WHITE, TFT_BLUE);
+  tft.setCursor(40, 100);
+  tft.println("BLUE");
+  delay(800);
+  Serial.println("Color test complete");
+}
 
-void drawMainPage() {
+void drawStatusBar() {
+  uint16_t bgColor, textColor;
+  
+  if (overallStatus == "error" || overallStatus == "red") {
+    bgColor = TFT_RED;
+    textColor = TFT_WHITE;
+  } else if (overallStatus == "orange") {
+    bgColor = TFT_ORANGE;
+    textColor = TFT_BLACK;
+  } else if (overallStatus == "yellow") {
+    bgColor = TFT_YELLOW;
+    textColor = TFT_BLACK;
+  } else {
+    bgColor = TFT_DARKGREEN;
+    textColor = TFT_WHITE;
+  }
+  
+  tft.fillRect(0, 200, 240, 40, bgColor);
+  tft.setTextColor(textColor, bgColor);
+  tft.setTextSize(1);
+  tft.setCursor(8, 212);
+  tft.println(statusText.substring(0, 25));  // prevent overflow
+}
+
+void updateDisplay(String wifiStatus = "") {
+  tft.setRotation(rotation);
   tft.fillScreen(TFT_BLACK);
   
-  // Logo (tap area)
-  tft.fillRect(5, 8, 48, 48, TFT_GOLD);
+  // Logo
+  tft.fillRect(8, 8, 48, 48, TFT_GOLD);
   tft.setTextColor(TFT_BLACK, TFT_GOLD);
-  tft.setTextSize(3);
-  tft.setCursor(18, 18);
+  tft.setTextSize(4);
+  tft.setCursor(18, 12);
   tft.println("R");
   
-  // Title
   tft.setTextColor(TFT_CYAN, TFT_BLACK);
   tft.setTextSize(2);
-  tft.setCursor(68, 22);
-  tft.println("AGENT VIEW");
+  tft.setCursor(70, 20);
+  tft.println(title);
   
-  // Tan separator
   tft.drawLine(5, 68, 235, 68, TFT_ORANGE);
   
-  // 2-Column Name | Value
-  tft.setTextColor(TFT_WHITE, TFT_BLACK);
-  tft.setTextSize(2);
+  // Data
+  tft.setTextColor(TFT_LIGHTGREY, TFT_BLACK);
+  tft.setTextSize(1);
   int y = 85;
-  tft.setCursor(10, y); tft.print("Server"); tft.setCursor(130, y); tft.println("EPS-01"); y += 22;
-  tft.setCursor(10, y); tft.print("Project"); tft.setCursor(130, y); tft.println(projectStatus); y += 22;
-  tft.setCursor(10, y); tft.print("Tokens"); tft.setCursor(130, y); tft.println(tokenStatus); y += 22;
-  tft.setCursor(10, y); tft.print("Agents"); tft.setCursor(130, y); tft.println(agentStatus); y += 22;
   
-  // Status Bar at bottom
-  uint16_t barColor = TFT_GREEN;
-  if (lastAlert.indexOf("permission") > -1) barColor = TFT_ORANGE;
-  if (lastAlert.indexOf("error") > -1 || lastAlert.indexOf("critical") > -1) barColor = TFT_RED;
+  tft.setCursor(10, y); tft.print("Agents"); tft.setCursor(130, y); tft.println(String(agents)); y += 16;
+  tft.setCursor(10, y); tft.print("Subagents"); tft.setCursor(130, y); tft.println(String(subagents)); y += 16;
+  tft.setCursor(10, y); tft.print("Tokens"); tft.setCursor(130, y); tft.println(String(tokensToday)); y += 16;
+  tft.setCursor(10, y); tft.print("Sprint"); tft.setCursor(130, y); tft.println(sprintStatus.substring(0,18)); y += 16;
   
-  tft.fillRect(0, 215, 240, 25, barColor);
-  tft.setTextColor(TFT_BLACK, barColor);
-  tft.setTextSize(1);
-  tft.setCursor(10, 222);
-  tft.println(lastAlert);
+  if (wifiStatus != "") {
+    tft.setTextColor(TFT_ORANGE, TFT_BLACK);
+    tft.setCursor(10, y); tft.println(wifiStatus);
+  }
+  
+  drawStatusBar();
+  
+  tft.setTextColor(TFT_DARKGREY, TFT_BLACK);
+  tft.setCursor(5, 225);
+  tft.println("IP:" + WiFi.localIP().toString() + "  Touch=rotate");
 }
 
-void drawAboutPage() {
-  tft.fillScreen(TFT_BLACK);
-  tft.setTextColor(TFT_GOLD, TFT_BLACK);
-  tft.setTextSize(3);
-  tft.setCursor(20, 30);
-  tft.println("RAAMSES");
-  tft.setTextSize(2);
-  tft.setCursor(20, 80);
-  tft.println("Remote AI Agent");
-  tft.setCursor(20, 110);
-  tft.println("Monitoring &");
-  tft.setCursor(20, 140);
-  tft.println("System Event");
-  tft.setCursor(20, 170);
-  tft.println("Supervisor");
-  tft.setTextSize(1);
-  tft.setCursor(20, 210);
-  tft.setTextColor(TFT_LIGHTGREY, TFT_BLACK);
-  tft.println("v1.0 - Tap to return");
-}
-
-void drawDetailPage() {
-  tft.fillScreen(TFT_BLACK);
-  tft.setTextColor(TFT_CYAN, TFT_BLACK);
-  tft.setTextSize(2);
-  tft.setCursor(10, 20);
-  tft.println("Detail View");
-  tft.setTextSize(1);
-  tft.setCursor(10, 60);
-  tft.println("Server EPS-01");
-  tft.println("CPU 23%");
-  tft.println("MEM 41%");
-  tft.println("DISK 68%");
-  tft.println("Uptime 14d 3h");
-  tft.setCursor(10, 200);
-  tft.setTextColor(TFT_LIGHTGREY, TFT_BLACK);
-  tft.println("Tap to return");
-}
-
-void drawFullResponsePage() {
-  tft.fillScreen(TFT_BLACK);
-  tft.setTextColor(TFT_WHITE, TFT_BLACK);
-  tft.setTextSize(1);
-  tft.setCursor(10, 10);
-  tft.println(fullResponseText);
-  tft.setCursor(10, 200);
-  tft.setTextColor(TFT_GREEN, TFT_BLACK);
-  tft.println("Reply | Back");
-}
-
-void handleTouch(int x, int y) {
-  if (currentPage == 0) {
-    if (x < 60 && y < 60) {  // Tap logo
-      currentPage = 1; // About
-    } else if (y > 80 && y < 200) { // Tap a data line
-      currentPage = 2; // Detail
-    } else if (y > 200) { // Tap status bar
-      currentPage = 3; // Full response
+void fetchStats() {
+  Serial.println("\n--- Fetching from http://" + serverIP + ":" + String(SERVER_PORT) + "/stats ---");
+  Serial.println("WiFi RSSI: " + String(WiFi.RSSI()) + "dBm | Local IP: " + WiFi.localIP().toString());
+  
+  HTTPClient http;
+  String url = "http://" + serverIP + ":" + String(SERVER_PORT) + "/stats";
+  http.setConnectTimeout(5000);
+  http.setTimeout(8000);
+  http.begin(url);
+  
+  int httpCode = http.GET();
+  Serial.println("HTTP Code: " + String(httpCode));
+  
+  if (httpCode == HTTP_CODE_OK) {
+    String payload = http.getString();
+    Serial.println("Payload length: " + String(payload.length()));
+    
+    DynamicJsonDocument doc(4096);
+    DeserializationError error = deserializeJson(doc, payload);
+    
+    if (!error) {
+      overallStatus = doc["overall_status"] | "green";
+      statusText = doc["last_alert"] | "All systems nominal";
+      agents = doc["agents"] | 1;
+      subagents = doc["subagents"] | 0;
+      tokensToday = doc["tokens_today"] | 0;
+      sprintStatus = doc["sprint_status"] | "Sprint 4/7";
+      
+      Serial.println("SUCCESS - Parsed data:");
+      Serial.println("  Status: " + overallStatus);
+      Serial.println("  Alert: " + statusText);
+      Serial.println("  Agents: " + String(agents) + " | Subagents: " + String(subagents));
+    } else {
+      Serial.println("JSON ERROR: " + String(error.c_str()));
+      overallStatus = "error";
+      statusText = "JSON parse failed";
     }
   } else {
-    currentPage = 0; // Tap anywhere to go back to main
+    overallStatus = "error";
+    statusText = "Server unreachable (code " + String(httpCode) + ")";
+    Serial.println("FAILED to reach server. Code -1 usually = DNS/WiFi/routing issue");
   }
-  updateDisplay();
-}
-
-void updateDisplay() {
-  if (currentPage == 0) drawMainPage();
-  else if (currentPage == 1) drawAboutPage();
-  else if (currentPage == 2) drawDetailPage();
-  else if (currentPage == 3) drawFullResponsePage();
+  http.end();
 }
 
 void setup() {
   Serial.begin(115200);
+  Serial.println("\n\n=== RAMSES CYD v3.2 - Network Diagnostics ===");
+  
   tft.init();
-  tft.setRotation(1);
+  tft.setRotation(rotation);
   pinMode(21, OUTPUT);
   digitalWrite(21, HIGH);
+  Serial.println("TFT + backlight initialized");
+  
+  colorTest();
+  
+  tft.fillScreen(TFT_BLACK);
+  tft.setTextColor(TFT_GREEN, TFT_BLACK);
+  tft.setTextSize(2);
+  tft.setCursor(20, 80);
+  tft.println("Ramses CYD");
+  tft.setCursor(30, 120);
+  tft.println("Connecting...");
   
   WiFiManager wm;
   wm.setClass("invert");
-  if (!wm.autoConnect("Ramses-CYD")) ESP.restart();
-
+  wm.setConfigPortalTimeout(240);
+  
+  // Add parameter for server IP
+  WiFiManagerParameter custom_server_ip("server_ip", "Server IP", serverIP.c_str(), 20);
+  wm.addParameter(&custom_server_ip);
+  
+  Serial.println("Starting WiFiManager (SSID: Ramses-CYD)...");
+  if (!wm.autoConnect("Ramses-CYD")) {
+    Serial.println("WiFi failed - restarting");
+    ESP.restart();
+  }
+  
+  serverIP = custom_server_ip.getValue();  // Update from portal if changed
+  if (serverIP.length() == 0) serverIP = "192.168.7.251";
+  
+  Serial.println("WiFi Connected!");
+  Serial.println("Local IP: " + WiFi.localIP().toString());
+  Serial.println("Server target: " + serverIP);
+  Serial.println("RSSI: " + String(WiFi.RSSI()) + " dBm");
+  
+  fetchStats();
   updateDisplay();
+  Serial.println("=== SETUP COMPLETE ===");
 }
 
 void loop() {
+  static unsigned long lastFetch = 0;
+  if (millis() - lastFetch > 8000) {
+    fetchStats();
+    updateDisplay();
+    lastFetch = millis();
+  }
+
   uint16_t x, y;
   if (tft.getTouch(&x, &y)) {
-    handleTouch(x, y);
-    delay(300);
+    Serial.println("Touch detected");
+    rotation = (rotation + 1) % 4;
+    updateDisplay();
+    delay(250);
   }
+  
   delay(50);
 }

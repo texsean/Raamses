@@ -6,17 +6,15 @@
 
 **NOTE**  
 We are almost live!  
-Today's date is 7/18/2026.
+Today's date is **7/18/2026**.
 
 **Welcome to raamses.io**
 
-We are going live on 9-01-2026.  
-We are accepting beta tester applications! Email support@raamses.io. We need testers with hardware already ready to be flashed.
+We are going live on **9-01-2026**.  
+We are accepting beta tester applications! Email **support@raamses.io**. We need testers with hardware already ready to be flashed.
 
 **Note:** If you download any firmware prior to launch, do so at your own risk.  
 We have published the full API and include a Python server emulator (see `server-emulator/`) so you can test firmware immediately.
-
-**Sean**
 
 **Desktop AI Agent Console (With Gateway)**
 
@@ -28,7 +26,7 @@ We have published the full API and include a Python server emulator (see `server
 
 **Mission Control for AI Agents**
 
-"Friday, 6:12 PM. Your agent needs one decision. Without RAAMSES, it waits until Monday. With RAAMSES, your AI Operations Console vibrates, you select option A, and the work keeps going."
+> "Friday, 6:12 PM. Your agent needs one decision. Without RAAMSES, it waits until Monday. With RAAMSES, your AI Operations Console vibrates, you select option A, and the work keeps going."
 
 RAAMSES is a device sitting on your desk or an e-paper pager vibrating on your wrist or in your pocket.
 
@@ -38,6 +36,49 @@ RAAMSES is a device sitting on your desk or an e-paper pager vibrating on your w
 
 ![RAAMSES Logo](assets/raamses-logo-highdpi.png)
 
+---
+
+## Smart Verification Engine (New)
+
+RAAMSES does not just ask agents for status — it **verifies**.
+
+### Configurable Inactivity & Verification Methodology
+The server is small enough to distribute and fully configurable:
+
+```yaml
+verification:
+  enabled: true
+  inactivity_methodology: "LocalLLM"   # or "FILEbased"
+  local_model: "llama3.2:3b"
+  poll_interval_seconds: 30
+  file_monitor:
+    - "C:/Agents/status/agent1.md"
+    - "/home/pi/agent_output.log"
+```
+
+- **`FILEbased`** — Monitors last-write time of any files you define. Simple, zero-LLM, very lightweight.
+- **`LocalLLM`** — Uses a local Ollama model (`llama3.2:3b` or similar) to detect loops, hallucination, drift, inactivity, or misleading claims by comparing self-reported status against real evidence (git, processes, files, test results, token usage).
+
+This gives users the choice: run completely lightweight, or enable intelligent verification. The LLM is completely optional.
+
+See `verification/ollama_verifier.py` and `config.yaml`.
+
+## Published Resources
+- Full XML + JSON protocol schemas: `/schemas/`
+- Python XML/JSON emulator: `/server-emulator/`
+- Configurable software console (e-paper, CYD, desktop modes): `/software-console/`
+- Unit tests + `run-tests.sh` runner: `/unit-tests/`
+- Verification engine with LocalLLM and FILEbased modes: `/verification/`
+
+All agents (Linux gateway, Android console, desktop, etc.) will use the same consistent naming and verification approach.
+
+**We are building the universal agentic interface — Mission Control + Telegram for AI agents and IoT devices.**
+
+**Sean & Remy**  
+Director of Development
+
+---
+
 🟢 All Agents Operational  
 🟡 Claude waiting for approval  
 🟠 Token usage abnormal  
@@ -45,58 +86,8 @@ RAAMSES is a device sitting on your desk or an e-paper pager vibrating on your w
 🔴 Disk space critical
 
 ## Ecosystem
-
-RAAMSES Server  
-├── Desktop AI Operations Console  
-├── CYD AI Operations Console  
-├── E-Paper AI Operations Console  
-├── Mobile AI Operations Console  
-└── Wearable AI Operations Console
-
-Pressing a button immediately opens the details or approval screen. That is instantly understandable.
-
-**Real-time visibility into your agentic systems.**
-
-RAAMSES gives developers and DevOps engineers a beautiful, always-on dashboard for Hermes, Claude Code, and other autonomous agents. No more constantly checking Telegram or email.
-
-**What the live console shows**
-
-**LAST VERIFIED WORK**  
-18 seconds ago
-
-Editing: gateway.cpp  
-Process: clang++  
-CPU: 61%
-
-“Verified” means the RAAMSES server observed an actual filesystem, process, tool, API, or source-control event — not a sentence supplied by the agent.
-
-**Suggested states:**  
-**ACTIVE** — verified event within 2 minutes  
-**QUIET** — no verified event for 2–15 minutes
-
-## Smart Verification Engine (NEW)
-
-RAAMSES does not trust agent self-reports. It periodically polls status **and then independently verifies** using real telemetry (filesystem changes, git commits, process activity, tool calls, test results, token burn rate, etc.).
-
-When discrepancies are detected, RAAMSES immediately escalates via console, pager, or alert with clear evidence.
-
-A local Ollama instance (Qwen2.5 or similar) runs as an independent second brain to detect astray agents, hallucinated progress, subtle drift, or repeated identical claims with no actual output. This makes RAAMSES significantly more trustworthy and sets it apart from simple dashboards.
-
-## Technical Foundation (Public)
-
-- Full XML + JSON protocol (published in `/schemas/`)
-- Python XML/JSON emulator (`server-emulator/`) for immediate testing
-- Configurable Software Console that can emulate e-paper, CYD, desktop, or any other device via simple XML config files
-- Unit test suite + `run-tests.sh` that runs against the emulator and software console in every simulated hardware mode (no physical device required)
-
-**Schemas & API:** https://github.com/texsean/Raamses/tree/master/schemas
-
-The full smart gateway (C# .NET 8 for Windows/Linux with Hermes/Claude integration) lives in the private `RaamsesServer` repository.
-
-**Almost live.** Beta applications are open.
-
-Contact: support@raamses.io
-
----
-
-*RAAMSES — Powerful oversight for autonomous AI agents.*
+- RAAMSES Server (Linux reference implementation on Pi 5)
+- Desktop AI Operations Console
+- CYD / E-Paper / Watchy Consoles
+- Android Console (in progress)
+- Local Ollama Verification Engine (optional but powerful)
