@@ -2,7 +2,7 @@
 
 Raamses custom Agent Console epaper pager:
 
-<img src="assetts/file_00000000fd9081f5a079e45037d43f3d.png" alt="RAAMSES Pager" width="400">
+<img src="assets/file_00000000fd9081f5a079e45037d43f3d.png" alt="RAAMSES Pager" width="400">
 
 NOTE
 we are almost live!
