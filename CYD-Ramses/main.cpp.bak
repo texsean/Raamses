@@ -1,0 +1,222 @@
+#include <Arduino.h>
+#include <WiFi.h>
+#include <WiFiManager.h>
+#include <TFT_eSPI.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
+
+TFT_eSPI tft = TFT_eSPI();
+
+const char* SERVER_IP = "192.168.7.XXX";   // ← CHANGE TO YOUR LAPTOP IP
+int currentPage = 0;
+String statusState = "green";
+String statusText = "Initializing...";
+bool isFlashing = false;
+bool flashToggle = false;
+unsigned long lastFlash = 0;
+unsigned long lastFetch = 0;
+
+void drawLockedStatusBar() {
+  // Lock status bar at bottom of 200x200 smartwatch-style viewport
+  // Colors per token usage thresholds (server determines state)
+  uint16_t bgColor, textColor;
+  
+  if (statusState == "green" || statusState == "low") {
+    bgColor = TFT_DARKGREEN;
+    textColor = TFT_YELLOW;  // ≤60% green/yellow font
+  } else if (statusState == "yellow" || statusState == "medium") {
+    bgColor = TFT_YELLOW;
+    textColor = TFT_BLACK;   // ~70%
+  } else if (statusState == "orange" || statusState == "high") {
+    bgColor = TFT_ORANGE;
+    textColor = TFT_BLACK;   // ~80%
+  } else if (statusState == "red" || statusState == "critical") {
+    bgColor = TFT_RED;
+    textColor = TFT_WHITE;   // 90%+ red/white
+  } else {
+    bgColor = TFT_NAVY;
+    textColor = TFT_WHITE;
+  }
+  
+  // Flashing for agent assistance requests (red/orange flash)
+  if (isFlashing && (statusState == "red" || statusState == "orange")) {
+    if (flashToggle) {
+      bgColor = TFT_RED;
+      textColor = TFT_WHITE;
+    } else {
+      bgColor = TFT_ORANGE;
+      textColor = TFT_BLACK;
+    }
+  }
+  
+  tft.fillRect(0, 170, 200, 30, bgColor);
+  tft.setTextColor(textColor, bgColor);
+  tft.setTextSize(1);  // Small, clean font for smartwatch
+  tft.setCursor(4, 177);
+  String displayText = statusState;
+  displayText.toUpperCase();
+  displayText += ": " + statusText;
+  if (displayText.length() > 25) displayText = displayText.substring(0, 22) + "...";
+  tft.println(displayText);
+  
+  // Subtle border for professional look
+  tft.drawRect(0, 170, 200, 30, TFT_LIGHTGREY);
+}
+
+void drawPageContent(int page) {
+  // Clear only the content area above locked status bar (keeps bar solid)
+  tft.fillRect(0, 0, 200, 170, TFT_BLACK);
+  
+  // Header - small clean fonts
+  tft.setTextColor(TFT_CYAN, TFT_BLACK);
+  tft.setTextSize(2);
+  tft.setCursor(10, 8);
+  tft.println("RAMSES");
+  
+  tft.setTextColor(TFT_WHITE, TFT_BLACK);
+  tft.setTextSize(1);
+  tft.setCursor(10, 35);
+  tft.println("CYD Status Monitor");
+  
+  tft.drawLine(5, 50, 195, 50, TFT_ORANGE);
+  
+  tft.setTextColor(TFT_LIGHTGREY, TFT_BLACK);
+  tft.setCursor(10, 65);
+  
+  if (page == 0) {
+    tft.println("Token Usage Status");
+    tft.setCursor(10, 85);
+    tft.setTextColor(TFT_GREEN, TFT_BLACK);
+    tft.println("Server-driven thresholds active");
+    tft.setCursor(10, 105);
+    tft.setTextColor(TFT_LIGHTGREY, TFT_BLACK);
+    tft.println("≤60% GREEN");
+    tft.setCursor(10, 120);
+    tft.println("70% YELLOW  |  80% ORANGE");
+    tft.setCursor(10, 135);
+    tft.println("90%+ RED - Flashes on assist");
+  } else if (page == 1) {
+    tft.println("Agent Overview");
+    tft.setCursor(10, 85);
+    tft.println("3 Agents");
+    tft.println("2 Subagents");
+    tft.println("0 Assistance Requests");
+    tft.setCursor(10, 135);
+    tft.setTextColor(TFT_YELLOW, TFT_BLACK);
+    tft.println("Tap for details (future)");
+  } else {
+    tft.println("Connection Status");
+    tft.setCursor(10, 85);
+    tft.println("WiFi: Connected");
+    tft.println("Server: " + String(SERVER_IP));
+    tft.setCursor(10, 120);
+    tft.setTextColor(TFT_SKYBLUE, TFT_BLACK);
+    tft.println("IP: " + WiFi.localIP().toString().substring(0, 15));
+    tft.setCursor(10, 145);
+    tft.setTextColor(TFT_DARKGREY, TFT_BLACK);
+    tft.println("v3.0 - Status Bar Locked");
+  }
+  
+  // Page indicator at bottom of content area
+  tft.setTextColor(TFT_DARKGREY, TFT_BLACK);
+  tft.setCursor(70, 155);
+  tft.printf("Page %d/3 - Tap to cycle", page + 1);
+}
+
+void updateDisplay() {
+  drawPageContent(currentPage);
+  drawLockedStatusBar();
+}
+
+void fetchStats() {
+  HTTPClient http;
+  String url = "http://" + String(SERVER_IP) + ":8080/stats";
+  http.begin(url);
+  int httpCode = http.GET();
+  
+  if (httpCode == HTTP_CODE_OK) {
+    String payload = http.getString();
+    DynamicJsonDocument doc(2048);
+    deserializeJson(doc, payload);
+    
+    // LCD simply displays what server sends for statusbar
+    if (doc.containsKey("statusbar")) {
+      statusState = doc["statusbar"]["state"].as<String>();
+      statusText = doc["statusbar"]["text"].as<String>();
+    }
+    
+    // Flash red/orange on agent assistance requests from server
+    isFlashing = doc["assistance_request"].as<bool>() || 
+                 statusText.indexOf("assist") > -1 || 
+                 statusText.indexOf("help") > -1;
+    
+    Serial.println("Status updated: " + statusState + " | " + statusText);
+  } else {
+    statusState = "red";
+    statusText = "Server unreachable";
+    isFlashing = true;
+    Serial.println("HTTP error: " + String(httpCode));
+  }
+  http.end();
+}
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("\n=== CYD-RAMSES v3.0 - Professional Status Bar ===");
+  
+  tft.init();
+  tft.setRotation(1);  // Landscape for CYD, using 200x200 logical area
+  tft.fillScreen(TFT_BLACK);
+  
+  // Boot screen
+  tft.setTextColor(TFT_GREEN, TFT_BLACK);
+  tft.setTextSize(3);
+  tft.setCursor(50, 60);
+  tft.println("CYD");
+  tft.setTextSize(2);
+  tft.setCursor(35, 110);
+  tft.println("RAMSES");
+  tft.setTextSize(1);
+  tft.setCursor(20, 150);
+  tft.println("Professional Status Bar");
+  
+  WiFiManager wm;
+  wm.setClass("invert");
+  if (!wm.autoConnect("CYD-Ramses")) {
+    ESP.restart();
+  }
+  
+  Serial.println("WiFi Connected! IP: " + WiFi.localIP().toString());
+  
+  fetchStats();
+  updateDisplay();
+  lastFetch = millis();
+}
+
+void loop() {
+  unsigned long now = millis();
+  
+  // Fetch stats periodically
+  if (now - lastFetch > 6000) {
+    fetchStats();
+    updateDisplay();
+    lastFetch = now;
+  }
+  
+  // Handle flashing for assistance (red/orange)
+  if (isFlashing && (now - lastFlash > 350)) {
+    flashToggle = !flashToggle;
+    lastFlash = now;
+    drawLockedStatusBar();  // Update only status bar
+  }
+  
+  // Tap detection to cycle pages (status bar remains locked/solid)
+  uint16_t x, y;
+  if (tft.getTouch(&x, &y)) {
+    currentPage = (currentPage + 1) % 3;
+    drawPageContent(currentPage);  // Only update content, lock bar
+    delay(250);  // Debounce
+  }
+  
+  delay(30);
+}

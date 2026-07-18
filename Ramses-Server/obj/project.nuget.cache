@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "peyJDLnWc+U=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\seanr\\Projects\\Ramses\\Ramses-Server\\Ramses-Server.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\seanr\\.nuget\\packages\\system.text.json\\8.0.5\\system.text.json.8.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}

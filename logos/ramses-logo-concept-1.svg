@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#0a0a1f"/>
+  <circle cx="200" cy="160" r="90" fill="#1a2a4a" stroke="#d4af37" stroke-width="18"/>
+  <text x="200" y="175" font-family="serif" font-size="92" fill="#d4af37" text-anchor="middle" font-weight="bold">R</text>
+  <text x="200" y="260" font-family="serif" font-size="42" fill="#e8c670" text-anchor="middle" letter-spacing="4">RAMSES</text>
+  <path d="M110 280 Q200 340 290 280" fill="none" stroke="#d4af37" stroke-width="14"/>
+  <circle cx="130" cy="100" r="18" fill="#ffdd77"/>
+  <circle cx="270" cy="100" r="18" fill="#ffdd77"/>
+  <text x="200" y="380" font-family="monospace" font-size="18" fill="#667799" text-anchor="middle">REMOTE AGENT MONITORING</text>
+</svg>

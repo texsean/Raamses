@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- Background -->
+  <rect width="200" height="200" fill="#0a0a1f"/>
+  
+  <!-- Gold border -->
+  <rect x="10" y="10" width="180" height="180" fill="none" stroke="#d4af37" stroke-width="8"/>
+  
+  <!-- Scarab beetle body -->
+  <ellipse cx="100" cy="95" rx="35" ry="25" fill="#1a3c5e"/>
+  <ellipse cx="100" cy="95" rx="28" ry="18" fill="#d4af37"/>
+  
+  <!-- Scarab wings -->
+  <path d="M65 80 Q45 55 35 75 Q50 95 70 85" fill="#1a3c5e" stroke="#d4af37" stroke-width="4"/>
+  <path d="M135 80 Q155 55 165 75 Q150 95 130 85" fill="#1a3c5e" stroke="#d4af37" stroke-width="4"/>
+  
+  <!-- Ankh symbol -->
+  <path d="M85 130 L85 165 L115 165 L115 130" fill="none" stroke="#d4af37" stroke-width="8"/>
+  <circle cx="100" cy="125" r="12" fill="none" stroke="#d4af37" stroke-width="8"/>
+  
+  <!-- RAMSES text - Egyptian stylized font simulation -->
+  <text x="100" y="45" font-family="serif" font-size="28" font-weight="bold" fill="#e8c670" text-anchor="middle" letter-spacing="2">RAMSES</text>
+  
+  <!-- Hieroglyphic inspired lines -->
+  <rect x="35" y="55" width="130" height="3" fill="#d4af37"/>
+  <rect x="35" y="180" width="130" height="3" fill="#d4af37"/>
+  
+  <!-- Small circuit nodes for tech feel -->
+  <circle cx="45" cy="75" r="3" fill="#00ffaa"/>
+  <circle cx="155" cy="75" r="3" fill="#00ffaa"/>
+  <circle cx="45" cy="125" r="3" fill="#00ffaa"/>
+  <circle cx="155" cy="125" r="3" fill="#00ffaa"/>
+  
+  <text x="100" y="195" font-family="monospace" font-size="9" fill="#666699" text-anchor="middle">AGENT MONITOR v0.1</text>
+</svg>

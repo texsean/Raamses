@@ -1,0 +1,17 @@
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\bin\Debug\net8.0\Ramses.Server.Infrastructure.deps.json
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\bin\Debug\net8.0\Ramses.Server.Infrastructure.dll
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\bin\Debug\net8.0\Ramses.Server.Infrastructure.pdb
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\bin\Debug\net8.0\Ramses.Server.Application.dll
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\bin\Debug\net8.0\Ramses.Server.Domain.dll
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\bin\Debug\net8.0\Ramses.Server.Application.pdb
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\bin\Debug\net8.0\Ramses.Server.Domain.pdb
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\obj\Debug\net8.0\Ramses.Server.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\obj\Debug\net8.0\Ramses.Server.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\obj\Debug\net8.0\Ramses.Server.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\obj\Debug\net8.0\Ramses.Server.Infrastructure.AssemblyInfo.cs
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\obj\Debug\net8.0\Ramses.Server.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\obj\Debug\net8.0\Ramses.S.18BFD8C8.Up2Date
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\obj\Debug\net8.0\Ramses.Server.Infrastructure.dll
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\obj\Debug\net8.0\refint\Ramses.Server.Infrastructure.dll
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\obj\Debug\net8.0\Ramses.Server.Infrastructure.pdb
+C:\Users\seanr\Projects\Ramses\src\Ramses.Server\Infrastructure\obj\Debug\net8.0\ref\Ramses.Server.Infrastructure.dll

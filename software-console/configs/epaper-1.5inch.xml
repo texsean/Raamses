@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConsoleConfig>
+  <DisplayCapabilities>
+    <WidthPixels>200</WidthPixels>
+    <HeightPixels>600</HeightPixels>
+    <DisplayType>EPaper</DisplayType>
+    <ColorMode>Monochrome</ColorMode>
+    <ColorDepthBits>1</ColorDepthBits>
+    <RefreshMode>Partial</RefreshMode>
+    <Orientation>Portrait</Orientation>
+    <SupportsRotation>true</SupportsRotation>
+    <SupportsImages>true</SupportsImages>
+    <SupportsAnimation>false</SupportsAnimation>
+    <SupportsPartialRefresh>true</SupportsPartialRefresh>
+    <MinimumRefreshIntervalMs>1500</MinimumRefreshIntervalMs>
+    <PreferredRefreshIntervalSeconds>300</PreferredRefreshIntervalSeconds>
+  </DisplayCapabilities>
+  <NotificationCapabilities>
+    <Sound>false</Sound>
+    <Vibration>true</Vibration>
+    <StatusLed>false</StatusLed>
+    <Backlight>false</Backlight>
+  </NotificationCapabilities>
+  <DeviceClass>WearableConsole</DeviceClass>
+</ConsoleConfig>

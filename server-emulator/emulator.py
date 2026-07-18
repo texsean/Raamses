@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-RAAMSES XML-speaking Server Emulator (v1.0 protocol compliant)
-Supports Register (with capability parsing and profile assignment), RegisterAck,
-Heartbeat, AgentUpdate, Alert, Command, and CommandResult.
+RAAMSES Dual XML + JSON Emulator (v1.0)
+Uses naming conventions that match Hermes/Claude-style agents for maximum compatibility
+and pass-through ease (agent_id, human_action_required, token_usage, progress_percent, etc.).
 """
 
+import json
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from http.server import HTTPServer, BaseHTTPRequestHandler
@@ -17,102 +18,81 @@ PROFILES = {
     "default": "Generic-Summary"
 }
 
-def generate_message(message_type: str, source_id: str, destination_id: str, payload_element) -> str:
-    root = ET.Element("RaamsesMessage", {
-        "protocolVersion": "1.0",
-        "messageType": message_type,
-        "messageId": str(uuid.uuid4()),
-        "timestampUtc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
-        "sourceId": source_id,
-        "destinationId": destination_id,
-        "sequence": "1"
-    })
-    
-    header = ET.SubElement(root, "Header")
-    ET.SubElement(header, "SessionId").text = "sess-" + str(uuid.uuid4())[:8].upper()
-    ET.SubElement(header, "Priority").text = "Normal"
-    
-    payload = ET.SubElement(root, "Payload")
-    payload.append(payload_element)
-    
-    return ET.tostring(root, encoding="unicode", method="xml")
+class Handler(BaseHTTPRequestHandler):
+    def _send_response(self, status, content_type, body):
+        self.send_response(status)
+        self.send_header("Content-type", content_type)
+        self.end_headers()
+        self.wfile.write(body if isinstance(body, bytes) else body.encode('utf-8'))
 
-class XMLHandler(BaseHTTPRequestHandler):
     def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
-        xml_data = self.rfile.read(content_length).decode('utf-8')
-        
+        content_length = int(self.headers.get('Content-Length', 0))
+        raw_data = self.rfile.read(content_length)
+        content_type = self.headers.get('Content-Type', '')
+
         try:
-            root = ET.fromstring(xml_data)
-            msg_type = root.get('messageType')
-            source = root.get('sourceId')
-            dest = root.get('destinationId')
-            
-            print(f"[{datetime.now()}] Received {msg_type} from {source}")
-            
-            if msg_type == "Register":
-                # Parse capabilities and assign profile
-                device_class = root.find(".//DeviceClass").text if root.find(".//DeviceClass") is not None else "default"
-                display_type = root.find(".//DisplayType").text if root.find(".//DisplayType") is not None else "LCD"
-                
-                profile = PROFILES.get(device_class, PROFILES["default"])
-                if "EPaper" in display_type:
-                    profile = "EPaper-Watch-Small"
-                
-                ack = ET.Element("RegisterAck")
-                ET.SubElement(ack, "Accepted").text = "true"
-                ET.SubElement(ack, "ServerName").text = "RAAMSES-EMULATOR"
-                ET.SubElement(ack, "ServerVersion").text = "0.9.0"
-                ET.SubElement(ack, "NegotiatedProtocolVersion").text = "1.0"
-                ET.SubElement(ack, "HeartbeatIntervalSeconds").text = "30"
-                ET.SubElement(ack, "StatusRefreshIntervalSeconds").text = "10"
-                ET.SubElement(ack, "MaximumPayloadBytes").text = "32768"
-                ET.SubElement(ack, "AssignedProfile").text = profile
-                
-                response_xml = generate_message("RegisterAck", "raamses-server", source, ack)
-                self.send_response(200)
-                self.send_header("Content-type", "application/xml")
-                self.end_headers()
-                self.wfile.write(response_xml.encode('utf-8'))
-                print(f"  → Sent RegisterAck with profile: {profile}")
-                
-            elif msg_type == "Heartbeat":
-                # Echo or simple ack
-                self.send_response(200)
-                self.send_header("Content-type", "application/xml")
-                self.end_headers()
-                self.wfile.write(b'<RaamsesMessage messageType="Ack"><Payload><Status>OK</Status></Payload></RaamsesMessage>')
-            else:
-                self.send_response(200)
-                self.send_header("Content-type", "application/xml")
-                self.end_headers()
-                self.wfile.write(b'<RaamsesMessage messageType="Error"><Payload><Message>Unsupported in emulator</Message></Payload></RaamsesMessage>')
-                
+            if 'application/json' in content_type:
+                data = json.loads(raw_data.decode('utf-8'))
+                msg_type = data.get('message_type', 'unknown')
+                source = data.get('source_id', 'test-console')
+                print(f"[JSON] Received {msg_type} from {source}")
+
+                if msg_type in ("agent_update", "register"):
+                    response = {
+                        "message_type": "register_ack" if msg_type == "register" else "agent_update_ack",
+                        "session_id": f"sess-{uuid.uuid4().hex[:8].upper()}",
+                        "assigned_profile": PROFILES.get(data.get("device_class", "default"), "Generic-Summary"),
+                        "accepted": True,
+                        "server_name": "RAAMSES-EMULATOR",
+                        "status": "ok"
+                    }
+                    self._send_response(200, "application/json", json.dumps(response, indent=2))
+                    return
+
+            else:  # XML
+                root = ET.fromstring(raw_data.decode('utf-8'))
+                msg_type = root.get('messageType', 'unknown')
+                source = root.get('sourceId', 'test-console')
+                print(f"[XML] Received {msg_type} from {source}")
+
+                if msg_type == "Register":
+                    device_class = root.find(".//DeviceClass")
+                    device_class = device_class.text if device_class is not None else "default"
+                    profile = PROFILES.get(device_class, PROFILES["default"])
+
+                    ack = ET.Element("RegisterAck")
+                    ET.SubElement(ack, "Accepted").text = "true"
+                    ET.SubElement(ack, "SessionId").text = f"sess-{uuid.uuid4().hex[:8].upper()}"
+                    ET.SubElement(ack, "AssignedProfile").text = profile
+                    ET.SubElement(ack, "ServerName").text = "RAAMSES-EMULATOR"
+
+                    response_xml = ET.tostring(ET.Element("RaamsesMessage", {
+                        "protocolVersion": "1.0",
+                        "messageType": "RegisterAck",
+                        "messageId": str(uuid.uuid4()),
+                        "timestampUtc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+                        "sourceId": "raamses-server",
+                        "destinationId": source
+                    }), encoding="unicode")
+                    self._send_response(200, "application/xml", response_xml)
+                    return
+
+            self._send_response(200, "application/json", json.dumps({"status": "ok", "message": "received"}))
         except Exception as e:
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write(f"<Error>{str(e)}</Error>".encode())
+            self._send_response(400, "application/json", json.dumps({"error": str(e)}))
 
     def do_GET(self):
-        if self.path in ("/", "/stats", "/api/stats"):
-            self.send_response(200)
-            self.send_header("Content-type", "application/xml")
-            self.end_headers()
-            # Return sample AgentUpdate
-            update = ET.Element("AgentUpdate")
-            server = ET.SubElement(update, "Server")
-            ET.SubElement(server, "ServerName").text = "Development Server"
-            ET.SubElement(server, "CpuPercent").text = "23"
-            # ... (full payload abbreviated for space)
-            xml = generate_message("AgentUpdate", "raamses-server", "all-consoles", update)
-            self.wfile.write(xml.encode('utf-8'))
-        else:
-            self.send_response(404)
-            self.end_headers()
+        self._send_response(200, "application/json", json.dumps({
+            "message_type": "agent_update",
+            "agent_id": "claude-gateway",
+            "state": "working",
+            "progress_percent": 72,
+            "token_usage": {"input": 84210, "output": 19340},
+            "human_action_required": False
+        }, indent=2))
 
 if __name__ == "__main__":
-    server = HTTPServer(("0.0.0.0", 8080), XMLHandler)
-    print("=== RAAMSES XML Protocol Emulator v1.0 running on http://localhost:8080 ===")
-    print("Send Register XML via POST. Supports profile auto-assignment.")
-    print("Ready for CYD, e-paper watch, and desktop console testing.")
+    server = HTTPServer(("127.0.0.1", 8080), Handler)
+    print("RAAMSES Dual XML+JSON Emulator running on http://127.0.0.1:8080")
+    print("Supports Hermes/Claude-style naming conventions for easy integration.")
     server.serve_forever()

@@ -1,0 +1,74 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\seanr\\Projects\\Ramses\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0F25AFF2-1605-8812-53D9-8A8AA1CEB141}|src\\Ramses.Server\\Api\\Ramses.Server.Api.csproj|c:\\users\\seanr\\projects\\ramses\\src\\ramses.server\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F25AFF2-1605-8812-53D9-8A8AA1CEB141}|src\\Ramses.Server\\Api\\Ramses.Server.Api.csproj|solutionrelative:src\\ramses.server\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9480E23F-68ED-3047-ECE4-41CD76E4DF0B}|src\\Ramses.Server\\Application\\Ramses.Server.Application.csproj|c:\\users\\seanr\\projects\\ramses\\src\\ramses.server\\application\\deviceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9480E23F-68ED-3047-ECE4-41CD76E4DF0B}|src\\Ramses.Server\\Application\\Ramses.Server.Application.csproj|solutionrelative:src\\ramses.server\\application\\deviceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E8448CB-F7D3-6E23-F93D-3E4ABA46DF2D}|src\\Ramses.Server\\ClientEmulator\\Ramses.Server.ClientEmulator.csproj|c:\\users\\seanr\\projects\\ramses\\src\\ramses.server\\clientemulator\\ramses.server.clientemulator.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{6E8448CB-F7D3-6E23-F93D-3E4ABA46DF2D}|src\\Ramses.Server\\ClientEmulator\\Ramses.Server.ClientEmulator.csproj|solutionrelative:src\\ramses.server\\clientemulator\\ramses.server.clientemulator.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\seanr\\Projects\\Ramses\\src\\Ramses.Server\\Api\\Program.cs",
+              "RelativeDocumentMoniker": "src\\Ramses.Server\\Api\\Program.cs",
+              "ToolTip": "C:\\Users\\seanr\\Projects\\Ramses\\src\\Ramses.Server\\Api\\Program.cs",
+              "RelativeToolTip": "src\\Ramses.Server\\Api\\Program.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T16:42:35.533Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DeviceService.cs",
+              "DocumentMoniker": "C:\\Users\\seanr\\Projects\\Ramses\\src\\Ramses.Server\\Application\\DeviceService.cs",
+              "RelativeDocumentMoniker": "src\\Ramses.Server\\Application\\DeviceService.cs",
+              "ToolTip": "C:\\Users\\seanr\\Projects\\Ramses\\src\\Ramses.Server\\Application\\DeviceService.cs",
+              "RelativeToolTip": "src\\Ramses.Server\\Application\\DeviceService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T16:21:59.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Ramses.Server.ClientEmulator.csproj",
+              "DocumentMoniker": "C:\\Users\\seanr\\Projects\\Ramses\\src\\Ramses.Server\\ClientEmulator\\Ramses.Server.ClientEmulator.csproj",
+              "RelativeDocumentMoniker": "src\\Ramses.Server\\ClientEmulator\\Ramses.Server.ClientEmulator.csproj",
+              "ToolTip": "C:\\Users\\seanr\\Projects\\Ramses\\src\\Ramses.Server\\ClientEmulator\\Ramses.Server.ClientEmulator.csproj",
+              "RelativeToolTip": "src\\Ramses.Server\\ClientEmulator\\Ramses.Server.ClientEmulator.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-07-07T15:43:03.712Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
