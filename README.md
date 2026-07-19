@@ -125,9 +125,9 @@ Contact: support@raamses.io
 
 
 ## Vision
-RAAMSES is more than a monitor. It is the **true mission controller** for autonomous AI agents. an entire suite of agentic tools like no other. No tools offer integrated hardware and software control aaccess many devices like Raamses. 
+RAAMSES is more than a monitor. It is the **true mission controller** for autonomous AI agents. an entire suite of agentic tools like no other. No tools offer integrated hardware and software control access with so many devices like Raamses. 
 
-- **v1** — Monitor amd control agents from Hermes, Claude, Grok and others with independent verification of their output with web and various hardware ĺsoftware interfaces all talking to the main Raamses server. no more Token limit reached surprises! Raamses will notify you well in advance when you are exceeding normal usage or about to hit pre set limits when known.
+- **v1** — Monitor and control agents from Hermes, Claude, Grok and others with independent verification of their output with web and various hardware & software interfaces all talking to the main Raamses server. no more Token limit reached surprises! Raamses will notify you well in advance when you are exceeding normal usage or about to hit pre set limits when known.
 
 - **v2** — Raamses-native agents that report structured evidence natively (no wrapper gateway/s needed
 - , the core gateway will be Raamses using Raamses Agents storing their memory in Raamses format (memory that will be exportable to .ram (raamses formatted) mark up files) which will make adding new agents on new servers pain free!
@@ -153,9 +153,10 @@ This is a feature CTOs, DevOps leads, and CFOs will want yesterday. It is propri
 **Note:** Pre-launch firmware and APKs are provided at your own risk.
 
 ## Technical Foundation
-- **Protocol** — Clean XML/JSON envelope with capability negotiation. Consoles declare what they can do; the server chooses the right payload (summary for small displays, fulldata for desktop).
+- **Protocol** — Clean XML/JSON envelope with capability negotiation. Consoles declare what they can do; the server chooses the right payload (summary for small displays, full data suite for desktop).
 - **Schemas** — Published modular XSDs: https://github.com/texsean/Raamses/tree/master/schemas
-- **Emulator** — Full-featured Python reference (XML + JSON, scheduled verification, chat pass-through). Use it to test consoles before the C++ server is complete.
+- **Emulator** — Full-featured Python reference (XML + JSON, scheduled verification, chat pass-through). we Use it to Qa test consoles before all features of the C++ linux server were complete. Now its evolved into the server side UI to the server and to the agents! Imagine htop for agents!
+- 
 - **Verifier** — Configurable local intelligence. See `verification/ollama_verifier.py` and `raamses-verifier.config`.
 - **Repositories**
   - Public (firmware, emulator, schemas, docs): https://github.com/texsean/Raamses
