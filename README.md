@@ -121,10 +121,10 @@ Contact: support@raamses.io
 ## Vision
 RAAMSES is more than a monitor. It is the **true mission controller** for autonomous AI agents. an entire suite of agentic tools like no other. No tools offer integrated hardware and software control aaccess many devices like Raamses. 
 
-- **v1** — Monitor amd control agents from Hermes, Claude, Grok and others with independent verification of their output with web and various hardware and software interfaces all talking to the main Raamses server. no more Token limit reached surprises! Raamses will notify you well in advance when you are exceeding normal usage or about to hit pre set limits when known.
+- **v1** — Monitor amd control agents from Hermes, Claude, Grok and others with independent verification of their output with web and various hardware ĺsoftware interfaces all talking to the main Raamses server. no more Token limit reached surprises! Raamses will notify you well in advance when you are exceeding normal usage or about to hit pre set limits when known.
 
 - **v2** — Raamses-native agents that report structured evidence natively (no wrapper gateway/s needed
-- , the core gateway will be Raamses using Raamses Agents storing their memory in Raamses format (memory that woll be exportable to .ram (raamses formatted) mark up files) which will make adding new agents on new servers pain free!
+- , the core gateway will be Raamses using Raamses Agents storing their memory in Raamses format (memory that will be exportable to .ram (raamses formatted) mark up files) which will make adding new agents on new servers pain free!
 
 - **v3** — Agent marketplace where RAAMSES is the OS — every agent plugs directly into your console.
 
