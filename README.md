@@ -117,17 +117,15 @@ Contact: support@raamses.io
 
 
 
-# RAAMSES — Remote AI Agent Monitoring & System Event Supervisor
-
-**Last Updated:** 2026-07-18
-
-**raamses.io** — The control plane for the agent economy.
 
 ## Vision
-RAAMSES is more than a monitor. It is the **control plane** for autonomous AI agents.
+RAAMSES is more than a monitor. It is the **true mission controller** for autonomous AI agents. an entire suite of agentic tools like no other. No tools offer integrated hardware and software control aaccess many devices like Raamses. 
 
-- **v1** — Monitor agents from Hermes, Claude, Grok and others with independent verification.
-- **v2** — Raamses-native agents that report structured evidence natively (no wrapper needed).
+- **v1** — Monitor amd control agents from Hermes, Claude, Grok and others with independent verification of their output with web and various hardware and software interfaces all talking to the main Raamses server. no more Token limit reached surprises! Raamses will notify you well in advance when you are exceeding normal usage or about to hit pre set limits when known.
+
+- **v2** — Raamses-native agents that report structured evidence natively (no wrapper gateway/s needed
+- , the core gateway will be Raamses using Raamses Agents storing their memory in Raamses format (memory that woll be exportable to .ram (raamses formatted) mark up files) which will make adding new agents on new servers pain free!
+
 - **v3** — Agent marketplace where RAAMSES is the OS — every agent plugs directly into your console.
 
 We are already on this trajectory with a launched domain, working firmware, CI-built Android app, Pi 5 Linux gateway in progress, and a verification engine that no one else has.
