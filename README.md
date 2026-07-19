@@ -175,7 +175,9 @@ This is a feature CTOs, DevOps leads, and CFOs will want yesterday. It is propri
 **RAAMSES — Evidence-based oversight for the agent economy.**
 
 
-" it's Wednesday afternoon and the build has failed you give a seemingly innoscent prompt to your agent .. you do this prompt :
+" it's Wednesday afternoon and the build has failed you give a seemingly innocent prompt to your agent .. 
+
+so.. you issue this prompt :
 
 "Agent, after a commit, wait 30 seconds, then verify that the APK build was successful. repeat every 30s until the build succeeded or failed. if successful, then it is safe to move to the next task. otherwise. investigate the failure, fix it, and try again.."
 
