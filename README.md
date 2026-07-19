@@ -175,9 +175,19 @@ This is a feature CTOs, DevOps leads, and CFOs will want yesterday. It is propri
 **RAAMSES — Evidence-based oversight for the agent economy.**
 
 
-" it's Wednesday afternoon and the build has failed you give a seemingly innoscent prompt to your agent that after he commits to the Repository he needs to not mobe to the n3dt task until the code builds the apk.. wait 30 seconds, then verify that the apk was successful. repeat every 3ps until the build has succeeded or failed. if successful, then it is safe to move to the next task. otherwise. investigate the failure fix it and try again..
+" it's Wednesday afternoon and the build has failed you give a seemingly innoscent prompt to your agent .. you do this prompt :
 
-Unfortunately. you created a loop if the build failing is outside of your agents capacity and will repeqy forever..and never notify the human that the build has failed..  the next thing you know Friday morning you get an alert that you used up all your tokens and that there's been 327 build attempts and your agent has repeatedly tried to fix a bug over and over repeating the same fix and that could have been detected Wednesday a few iterations into the loop.. that Raamses will catch after 5 attempts five fails Ramses will notify you that your agent is in a potential loop after 10 Raamses will instruct your agent to check itself.
+"Agent, after a commit, wait 30 seconds, then verify that the APK build was successful. repeat every 30s until the build succeeded or failed. if successful, then it is safe to move to the next task. otherwise. investigate the failure, fix it, and try again.."
+
+Unfortunately. you created a loop..
+
+if the build failing is outside of your agents capacity it will try forever..and never notify the human that the build has failed.. 
+
+the next thing you know Friday morning you get an alert that you used up all your tokens and that there's been 327 build attempts and your agent has repeatedly tried to fix a bug over and over repeating the same fix.. and that could have been detected Wednesday a few iterations into the loop.. 
+
+Raamses will catch this after 5 attempts! five fails Raamses will notify you that your agent is in a potential loop.. and after 10, Raamses will instruct your agent to check itself.
+
+
 *Built with independent verification, configurable local intelligence, and a clear path to native agents and a marketplace.*
 
 ---
