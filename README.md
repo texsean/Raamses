@@ -1,16 +1,14 @@
 # RAAMSES — Remote AI Agent Monitoring & System Event Supervisor
 
-**RAAMSES custom Agent Console e-paper pager:**
-
-![RAAMSES Pager](assets/file_00000000fd9081f5a079e45037d43f3d.png)
-
 **NOTE**  
 We are almost live!  
-Today's date is 7/18/2026.
+Today's date is 7/19/2026.
 
 **Welcome to raamses.io**
 
-We are going live on 9-01-2026.  
+We are going live on 10-31-2026. 👻  
+
+
 We are accepting beta tester applications! Email support@raamses.io. We need testers with hardware already ready to be flashed.
 
 **Note:** If you download any firmware prior to launch, do so at your own risk.  
@@ -26,7 +24,15 @@ We have published the full API and include a Python server emulator (see `server
 
 ![RAAMSES OLED Agent Monitor](assets/file_00000000b34481f8955c178988114fe4.png)
 
+
+**RAAMSES custom Agent Console e-paper pager:**
+
+![RAAMSES Pager](assets/file_00000000fd9081f5a079e45037d43f3d.png)
+
+
 **Mission Control for AI Agents**
+
+
 
 "Friday, 6:12 PM. Your agent needs one decision. Without RAAMSES, it waits until Monday. With RAAMSES, your AI Operations Console vibrates, you select option A, and the work keeps going."
 
@@ -168,6 +174,10 @@ This is a feature CTOs, DevOps leads, and CFOs will want yesterday. It is propri
 
 **RAAMSES — Evidence-based oversight for the agent economy.**
 
+
+" it's Wednesday afternoon and the build has failed you give a seemingly innoscent prompt to your agent that after he commits to the Repository he needs to not mobe to the n3dt task until the code builds the apk.. wait 30 seconds, then verify that the apk was successful. repeat every 3ps until the build has succeeded or failed. if successful, then it is safe to move to the next task. otherwise. investigate the failure fix it and try again..
+
+Unfortunately. you created a loop if the build failing is outside of your agents capacity and will repeqy forever..and never notify the human that the build has failed..  the next thing you know Friday morning you get an alert that you used up all your tokens and that there's been 327 build attempts and your agent has repeatedly tried to fix a bug over and over repeating the same fix and that could have been detected Wednesday a few iterations into the loop.. that Raamses will catch after 5 attempts five fails Ramses will notify you that your agent is in a potential loop after 10 Raamses will instruct your agent to check itself.
 *Built with independent verification, configurable local intelligence, and a clear path to native agents and a marketplace.*
 
 ---
