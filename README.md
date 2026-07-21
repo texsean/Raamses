@@ -66,7 +66,7 @@ Pressing a button immediately opens the details or approval screen. That is inst
 RAAMSES gives developers and DevOps engineers a beautiful, always-on dashboard for Hermes, Claude Code, and other autonomous agents. No more constantly checking Telegram or email.
 
 **What the live console shows**
-**Configurable Local LLM Support**  
+**Configurable Local LLM Support**   
 Choose your own model (`llama3.2:3b`, etc.) or let RAAMSES detect and use an existing one. Perfect for **detecting wasted tokens and inactive agents** without cloud dependency. Performance is guarded so slow models never block the gateway.
 
 **Future Raamses-Native Agents**  
