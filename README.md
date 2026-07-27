@@ -61,9 +61,9 @@ RAAMSES Server
 
 Pressing a button immediately opens the details or approval screen. That is instantly understandable.
 
-**Real-time visibility into your agentic systems.**
+**Real-time visibility into your agentic and devops systems.**
 
-RAAMSES gives developers and DevOps engineers a beautiful, always-on dashboard for Hermes, Claude Code, and other autonomous agents. No more constantly checking Telegram or email.
+RAAMSES gives developers and DevOps engineers a beautiful, always-on dashboard for Hermes, Claude Code, and other autonomous agents. as well as VPNs NAS DHCP and traditional IT infrastructure. No more constantly checking Telegram or email.
 
 **What the live console shows**
 **Configurable Local LLM Support**   
@@ -73,7 +73,7 @@ Choose your own model (`llama3.2:3b`, etc.) or let RAAMSES detect and use an exi
 Our own agents will report structured evidence directly. No parsing, no wrappers — maximum accuracy and trust.
 
 ## Current Status
-- **Firmware** — CYD, ESP32 e-paper watch, configurable software console (emulates any display size/type for testing).
+- **Firmware** — CYD, Meshtastic V3 and v4 ,ESP32 e-paper watch, configurable software console (emulates any display size/type for testing).
 - **Android App** — v1.0.2 APK building automatically on every tagged commit via GitHub CI (see RaamsesAndroid repo).
 - **Desktop Console** — Linux htop-style terminal UI in progress (emulates small displays while remaining terminal-friendly).
 - **Gateway/Server** — Python emulator with full XML/JSON protocol, scheduled verifier (30s poll), chat pass-through, `/sethome`, and generic gateway mode. C++ Linux reference implementation starting on Pi 5.
@@ -121,20 +121,6 @@ Contact: support@raamses.io
 
 *RAAMSES — Powerful oversight for autonomous AI agents.*
 
-
-
-
-## Vision
-RAAMSES is more than a monitor. It is the **true mission controller** for autonomous AI agents. an entire suite of agentic tools like no other. No tools offer integrated hardware and software control access with so many devices like Raamses. 
-
-- **v1** — Monitor and control agents from Hermes, Claude, Grok and others with independent verification of their output with web and various hardware & software interfaces all talking to the main Raamses server. no more Token limit reached surprises! Raamses will notify you well in advance when you are exceeding normal usage or about to hit pre set limits when known.
-
-- **v2** — Raamses-native agents that report structured evidence natively (no wrapper gateway/s needed
-- , the core gateway will be Raamses using Raamses Agents storing their memory in Raamses format (memory that will be exportable to .ram (raamses formatted) mark up files) which will make adding new agents on new servers pain free!
-
-- **v3** — Agent marketplace where RAAMSES is the OS — every agent plugs directly into your console.
-
-We are already on this trajectory with a launched domain, working firmware, CI-built Android app, Pi 5 Linux gateway in progress, and a verification engine that no one else has.
 
 ## Core Differentiator — Anti-Hallucination Verification
 Most systems trust what agents say. RAAMSES **asks for status… then independently verifies**.
