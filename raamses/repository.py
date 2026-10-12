@@ -144,6 +144,18 @@ _SIGNATURES: Dict[str, Sequence[str]] = {
     "sp_recall": ("text", "vector(1536)", "text", "integer"),
     "sp_compact_session": ("text", "text", "bigint", "integer"),
     "sp_build_context": ("text", "integer"),
+    # Learning layer (dual-LLM route) — migration 0007.
+    "sp_learn_match": ("text", "text", "real"),
+    "sp_learn_record": (
+        "text", "text", "text", "text", "text", "real", "integer", "integer",
+        "integer", "integer", "jsonb",
+    ),
+    "sp_learn_rank": ("bigint", "integer"),
+    "sp_learn_solutions": ("bigint", "integer", "integer"),
+    "sp_learn_log_hit": ("bigint", "text", "text", "bigint", "real", "text", "jsonb"),
+    "sp_learn_feedback": ("bigint", "integer", "integer"),
+    "sp_learn_demote": ("bigint",),
+    "sp_learn_stats": ("text", "timestamptz"),
 }
 
 
@@ -219,6 +231,42 @@ class RecalledMemory:
     kind: str
     importance: float
     score: float
+
+
+@dataclass(frozen=True)
+class ProblemMatch:
+    """One row of :meth:`RaamsesRepository.learn_match`."""
+
+    problem_id: int
+    similarity: float
+    main_answers: int
+    promoted: bool
+
+
+@dataclass(frozen=True)
+class LearnRecord:
+    """Result of :meth:`RaamsesRepository.learn_record`."""
+
+    problem_id: int
+    solution_id: int
+    main_answers: int
+    promoted: bool
+
+
+@dataclass(frozen=True)
+class RankedSolution:
+    solution_id: int
+    answer: str
+    score: float
+    rank: int
+
+
+@dataclass(frozen=True)
+class RouteStats:
+    route: str              # 'main' | 'local' | 'local_declined'
+    turns: int
+    prompt_tokens: int
+    completion_tokens: int
 
 
 # ------------------------------------------------------------ repository ----
@@ -416,6 +464,80 @@ class RaamsesRepository:
     def context_tokens(rows: Sequence[ContextRow]) -> int:
         """Total tokens in an assembled context — for ``turn_metrics``."""
         return sum(r.token_count for r in rows)
+
+    # -- learning layer (dual-LLM route, migration 0007) -------------------
+
+    def learn_match(
+        self, agent_id: str, question: str, threshold: float = 0.6,
+    ) -> Optional[ProblemMatch]:
+        """Best stored problem for ``question`` within ``agent_id``, or None."""
+        rows = self._rows("sp_learn_match", agent_id, question, threshold)
+        if not rows:
+            return None
+        r = rows[0]
+        return ProblemMatch(r[0], float(r[1]), r[2], bool(r[3]))
+
+    def learn_record(
+        self,
+        agent_id: str,
+        session_id: Optional[str],
+        question: str,
+        answer: str,
+        model: Optional[str] = None,
+        threshold: float = 0.6,
+        promote_after: int = 3,
+        ttl_days: Optional[int] = 30,
+        prompt_tokens: Optional[int] = None,
+        completion_tokens: Optional[int] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+    ) -> LearnRecord:
+        """Store one main-route answer; ranks and promotes at ``promote_after``."""
+        r = self._rows(
+            "sp_learn_record",
+            agent_id, session_id, question, answer, model, threshold, promote_after,
+            ttl_days, prompt_tokens, completion_tokens, _jsonb(metadata),
+        )[0]
+        return LearnRecord(r[0], r[1], r[2], bool(r[3]))
+
+    def learn_rank(self, problem_id: int, ttl_days: Optional[int] = 30) -> int:
+        """Re-rank one problem's solutions; returns how many are rankable."""
+        return self._scalar("sp_learn_rank", problem_id, ttl_days)
+
+    def learn_solutions(
+        self, problem_id: int, k: int = 3, ttl_days: Optional[int] = 30,
+    ) -> List[RankedSolution]:
+        """Top-k servable solutions of a promoted problem (empty if not promoted)."""
+        rows = self._rows("sp_learn_solutions", problem_id, k, ttl_days)
+        return [RankedSolution(r[0], r[1], float(r[2]), r[3]) for r in rows]
+
+    def learn_log_hit(
+        self,
+        problem_id: int,
+        session_id: Optional[str],
+        route: str,
+        solution_id: Optional[int] = None,
+        similarity: Optional[float] = None,
+        model: Optional[str] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+    ) -> int:
+        """Log a ``local`` or ``local_declined`` turn against a problem."""
+        return self._scalar(
+            "sp_learn_log_hit",
+            problem_id, session_id, route, solution_id, similarity, model, _jsonb(metadata),
+        )
+
+    def learn_feedback(self, solution_id: int, vote: int, ttl_days: Optional[int] = 30) -> bool:
+        """Vote +1/-1 on a solution; returns whether its problem is still promoted."""
+        return bool(self._scalar("sp_learn_feedback", solution_id, vote, ttl_days))
+
+    def learn_demote(self, problem_id: int) -> bool:
+        """Send a problem back to the main route and restart its counter."""
+        return bool(self._scalar("sp_learn_demote", problem_id))
+
+    def learn_stats(self, agent_id: str, since: Any = None) -> List[RouteStats]:
+        """Per-route turn counts and main-route tokens actually spent."""
+        rows = self._rows("sp_learn_stats", agent_id, since)
+        return [RouteStats(r[0], r[1], int(r[2] or 0), int(r[3] or 0)) for r in rows]
 
 
 _repository: Optional[RaamsesRepository] = None
