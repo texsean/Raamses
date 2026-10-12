@@ -11,6 +11,7 @@ machines without Docker.
 from __future__ import annotations
 
 import os
+import uuid
 
 import pytest
 
@@ -56,7 +57,7 @@ def repo(pool):
 
 @pytest.fixture
 def session(repo):
-    sid = repo.create_session("repo-test")
+    sid = repo.create_session(f"repo-test-{uuid.uuid4().hex[:12]}")
     yield sid
     with repo._pool_or_default().connection() as conn:
         conn.execute("DELETE FROM sessions WHERE session_id = %s", (sid,))
@@ -135,17 +136,17 @@ def test_create_and_get_session(repo, session):
     row = repo.get_session(session)
     assert row is not None
     assert row.session_id == session
-    assert row.title == "repo-test"
+    assert row.title is None
     assert row.status == "active"
     assert row.storage_backend == "raamses"
 
 
 def test_get_unknown_session_returns_none(repo):
-    assert repo.get_session("00000000-0000-0000-0000-000000000000") is None
+    assert repo.get_session("nonexistent-session-id") is None
 
 
 def test_create_session_stores_metadata(repo):
-    sid = repo.create_session("meta", {"origin": "test"})
+    sid = repo.create_session(f"meta-{uuid.uuid4().hex[:8]}", metadata={"origin": "test"})
     try:
         assert repo.get_session(sid).metadata == {"origin": "test"}
     finally:
@@ -167,7 +168,7 @@ def test_end_session_reason_is_first_wins(repo, session):
 
 
 def test_end_unknown_session_returns_false(repo):
-    assert repo.end_session("00000000-0000-0000-0000-000000000000") is False
+    assert repo.end_session("nonexistent-session-id") is False
 
 
 def test_list_sessions_counts_messages(repo, session):

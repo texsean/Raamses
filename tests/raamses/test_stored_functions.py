@@ -43,12 +43,12 @@ def conn():
 @pytest.fixture
 def session_id(conn):
     """A throwaway session, cascade-deleted after the test."""
+    sid = f"test-{uuid.uuid4().hex}"
     with conn.cursor() as cur:
         cur.execute(
-            "INSERT INTO sessions (title) VALUES (%s) RETURNING session_id",
-            (f"test-{uuid.uuid4().hex[:8]}",),
+            "INSERT INTO sessions (session_id) VALUES (%s)",
+            (sid,),
         )
-        sid = cur.fetchone()[0]
     yield sid
     with conn.cursor() as cur:
         cur.execute("DELETE FROM sessions WHERE session_id = %s", (sid,))
@@ -58,12 +58,12 @@ def session_id(conn):
 # parameters as `unknown` — which fails to match VECTOR/JSONB/REAL signatures.
 # Each stored function therefore declares the casts for its parameter list.
 SIGNATURES = {
-    "sp_append_message": ["uuid", "text", "text", "bigint", "integer", "jsonb"],
-    "sp_log_tool_call": ["uuid", "text", "jsonb", "bigint", "jsonb", "text", "text", "numeric"],
-    "sp_upsert_memory": ["bigint", "uuid", "text", "text", "vector(1536)", "real", "jsonb"],
-    "sp_recall": ["uuid", "vector(1536)", "text", "integer"],
-    "sp_compact_session": ["uuid", "text", "bigint", "integer"],
-    "sp_build_context": ["uuid", "integer"],
+    "sp_append_message": ["text", "text", "text", "bigint", "integer", "jsonb"],
+    "sp_log_tool_call": ["text", "text", "jsonb", "bigint", "jsonb", "text", "text", "numeric"],
+    "sp_upsert_memory": ["bigint", "text", "text", "text", "vector(1536)", "real", "jsonb"],
+    "sp_recall": ["text", "vector(1536)", "text", "integer"],
+    "sp_compact_session": ["text", "text", "bigint", "integer"],
+    "sp_build_context": ["text", "integer"],
 }
 
 
@@ -256,7 +256,7 @@ def test_compact_session_folds_messages_into_summary(conn, session_id):
 def test_compact_session_rejects_foreign_message(conn, session_id):
     other = call(conn, "sp_append_message", session_id, "user", "mine", None, None, "{}")
     with conn.cursor() as cur:
-        cur.execute("INSERT INTO sessions (title) VALUES ('other') RETURNING session_id")
+        cur.execute("INSERT INTO sessions (session_id) VALUES ('other-session') RETURNING session_id")
         other_sid = cur.fetchone()[0]
     try:
         with pytest.raises(psycopg.errors.RaiseException):

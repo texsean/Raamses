@@ -49,6 +49,7 @@ class TurnFacadeMixin:
         from agent.subagent_lifecycle import bind_subagent_parent
         from agent.turn_facade_lease import admit_durable_turn_lease
         from hermes_cli.observability.relay_shared_metrics import finish_task_run, start_task_run
+        from raamses import dual_llm
 
         effective_task_id = task_id or str(uuid.uuid4())
         session_id = str(getattr(self, "session_id", None) or "")
@@ -119,14 +120,32 @@ class TurnFacadeMixin:
                 try:
                     if lease is not None:
                         lease.start()
-                    result = run_conversation(
-                        self, user_message, system_message, conversation_history, effective_task_id,
-                        stream_callback, persist_user_message,
+                    # RaamsesAgent dual-LLM route: a promoted question is answered by the local
+                    # model from ranked stored answers; otherwise the main loop runs and its
+                    # answer is recorded. Both calls are fail-open no-ops unless enabled.
+                    dual_cfg = dual_llm.load_config()
+                    result = None if not dual_cfg.enabled else dual_llm.try_local_turn(
+                        self, user_message, conversation_history, cfg=dual_cfg,
+                        persist_user_message=persist_user_message,
                         persist_user_timestamp=persist_user_timestamp,
-                        persist_user_display_kind=persist_user_display_kind,
-                        persist_user_display_metadata=persist_user_display_metadata,
                         persist_user_platform_id=persist_user_platform_id, moa_config=moa_config,
                     )
+                    if result is None:
+                        tokens_before = dual_llm.snapshot_tokens(self)
+                        result = run_conversation(
+                            self, user_message, system_message, conversation_history, effective_task_id,
+                            stream_callback, persist_user_message,
+                            persist_user_timestamp=persist_user_timestamp,
+                            persist_user_display_kind=persist_user_display_kind,
+                            persist_user_display_metadata=persist_user_display_metadata,
+                            persist_user_platform_id=persist_user_platform_id, moa_config=moa_config,
+                        )
+                        if dual_cfg.enabled:
+                            dual_llm.observe_turn(
+                                self, user_message, conversation_history, result, cfg=dual_cfg,
+                                persist_user_message=persist_user_message, moa_config=moa_config,
+                                tokens_before=tokens_before,
+                            )
                 finally:
                     # Post-loop relay/task finalization must not receive a late refresh interrupt;
                     # the interrupt clear itself waits for the thread join in the outer finally.

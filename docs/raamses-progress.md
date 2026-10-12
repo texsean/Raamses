@@ -5,6 +5,48 @@ Kept in-repo so it survives sessions and is minable into the memory palace.
 
 ---
 
+## 2026-09-12 — Phase 3 foundation: session_id is TEXT, not UUID
+
+Branch `raamses/phase3-session-store`. Migration `0006` + repository/tests.
+
+Found the first real Phase 3 blocker: the Phase 1/2 schema declared
+`sessions.session_id UUID` and minted ids inside `sp_create_session` with
+`gen_random_uuid()`. Hermes session ids are timestamp **strings**
+(`20260912_113311_45eac8`) produced by the runtime and passed in by callers —
+a UUID store can never hold a real session, so the port dead-ended on turn one.
+
+`0006` rebuilds all 8 tables with `session_id TEXT` and rewrites
+`sp_create_session` to **take the caller's id** (upsert), faithful to
+`SessionDB.create_session(session_id, source, ...)`. All 11 stored functions
+now take TEXT ids. The `sp_build_context` in 0006 is the budget-aware version
+(0004 semantics — caught because re-creating the 0003 non-trimming body
+clobbered the 0004 fix and 4 tests went red).
+
+**Verified: 54 tests pass** against live Postgres.
+
+Next (still Phase 3, same branch or a follow-up):
+1. Full-fidelity columns — the stock SQLite `sessions` (~60 cols) and
+   `messages` (~28 cols) are far wider than the v1 skeleton (7 / 12). The swap
+   needs those columns (cwd, model_config, source, session_key, archived/pinned/
+   hidden flags, started_at/ended_at, token accounting, ...) before the facade
+   port. Additive `ALTER TABLE ... ADD COLUMN`, no re-drop.
+2. Facade port — a `RaamsesSessionDB` overriding the ~15–20 hot-path public
+   methods (create/get/end/list sessions, append_messages_batch,
+   get_messages_as_conversation, get_meta/set_meta) over the repository,
+   constructed when `storage.backend=raamses`. The ~195-method surface is NOT
+   ported in one shot; non-hot-path methods (FTS search, portability, telegram
+   topics, gateway, maintenance) stay on the stock path for now.
+
+### Gotcha worth remembering
+
+- Recreating a stored function from an OLDER migration silently reverts later
+  migrations. 0006 re-declared `sp_build_context` from the 0003 body and wiped
+  the 0004 budget fix; the token-budget tests are the tripwire. When a
+  corrective migration re-declares a function, diff it against the LATEST
+  definition, not the original.
+
+---
+
 ## 2026-09-12 — Phase 1 verified, Phase 2 landed
 
 ### Phase 1 — Schema (DONE, verified)
