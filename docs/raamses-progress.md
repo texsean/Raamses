@@ -5,6 +5,46 @@ Kept in-repo so it survives sessions and is minable into the memory palace.
 
 ---
 
+## 2026-11-21 — Phase 3 step 1: full-fidelity columns (migration 0008)
+
+Branch `raamses/migration-0008-full-fidelity-columns`. Migration `0008_full_fidelity_columns.sql`.
+
+Baseline re-verified first (Sean chose test-first): Postgres 16 + pgvector
+0.6.0, migrations 0001–0007 applied cleanly — 11 tables, 19 stored functions.
+**87 tests passed, 0 failed in 1.97s** (22 stored-function + 32 repository +
+13 learning-layer + 20 dual-LLM). This supersedes the Sept 12 "54 tests"
+baseline; the extra 33 are the 0007 learning-layer / dual-LLM tests.
+
+Correction to the Sept 12 log: stock SQLite is **58 sessions columns / 24
+messages columns** (`hermes_state_common.py` SCHEMA_SQL), not "~60 / ~28".
+The Postgres skeleton after 0006 is sessions 7 / messages 10, so 0008 adds
+**56 + 19 = 75 columns**, additive `ALTER TABLE ... ADD COLUMN IF NOT
+EXISTS`, no DROP/rebuild. Type rules: TEXT stays TEXT (JSON-encoded TEXT
+kept TEXT, not JSONB, so the facade does no silent conversion), INTEGER stays
+INTEGER, REAL epoch/cost -> DOUBLE PRECISION, flags stay INTEGER 0/1.
+
+Also creates `system_prompts` (hash TEXT PRIMARY KEY, prompt TEXT NOT NULL):
+stock has the table and `get_session()` LEFT JOINs it, so the draft's open
+question is settled by stock, not by preference.
+
+Defaults note: stock DEFAULT 0 columns are added with no DEFAULT so the
+migration applies cleanly to existing test rows. The facade must set them on
+insert (`_insert_session_row` only writes 17 session columns on create), or a
+follow-up migration should add the DEFAULTs. `started_at` is NOT NULL in
+stock but left nullable here; the facade must always set it.
+
+Verified: migrations 0001–0008 applied cleanly to a live Postgres 16 +
+pgvector 0.6.0 instance (port 55432, as in docker-compose.postgres.yml),
+column counts checked (sessions 63 = 58 stock + 5 Postgres extras,
+messages 29 = 24 stock + 5 extras, system_prompts 2), and
+`scripts/run_tests.sh tests/raamses/` passes: **87 tests, 0 failed**.
+
+Next: Facade port — a `RaamsesSessionDB` overriding the ~15–20 hot-path
+public methods over the repository, constructed when
+`storage.backend=raamses`.
+
+---
+
 ## 2026-09-12 — Phase 3 foundation: session_id is TEXT, not UUID
 
 Branch `raamses/phase3-session-store`. Migration `0006` + repository/tests.
